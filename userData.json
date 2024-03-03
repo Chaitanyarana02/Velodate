@@ -1,0 +1,90 @@
+[
+  {
+    "name": "John Doe",
+    "gender": "Male",
+    "dob": "1990-01-01",
+    "email": "john.doe@example.com",
+    "phone": "1234567890",
+    "status": "Active"
+  },
+  {
+    "name": "Jane Smith",
+    "gender": "Female",
+    "dob": "1985-05-15",
+    "email": "jane.smith@example.com",
+    "phone": "9876543210",
+    "status": "Inactive"
+  },
+  {
+    "name": "Michael Johnson",
+    "gender": "Male",
+    "dob": "1988-12-25",
+    "email": "michael.johnson@example.com",
+    "phone": "4561237890",
+    "status": "Active"
+  },
+  {
+    "name": "Emily Brown",
+    "gender": "Female",
+    "dob": "1992-08-10",
+    "email": "emily.brown@example.com",
+    "phone": "6549873210",
+    "status": "Active"
+  },
+  {
+    "name": "David Williams",
+    "gender": "Male",
+    "dob": "1983-06-20",
+    "email": "david.williams@example.com",
+    "phone": "7894561230",
+    "status": "Inactive"
+  },
+  {
+    "name": "Jessica Taylor",
+    "gender": "Female",
+    "dob": "1995-04-30",
+    "email": "jessica.taylor@example.com",
+    "phone": "7418529630",
+    "status": "Active"
+  },
+  {
+    "name": "Christopher Martinez",
+    "gender": "Male",
+    "dob": "1987-11-05",
+    "email": "christopher.martinez@example.com",
+    "phone": "8529637410",
+    "status": "Active"
+  },
+  {
+    "name": "Amanda Johnson",
+    "gender": "Female",
+    "dob": "1993-09-17",
+    "email": "amanda.johnson@example.com",
+    "phone": "3692581470",
+    "status": "Inactive"
+  },
+  {
+    "name": "James Brown",
+    "gender": "Male",
+    "dob": "1991-07-12",
+    "email": "james.brown@example.com",
+    "phone": "2581473690",
+    "status": "Active"
+  },
+  {
+    "name": "Sarah Garcia",
+    "gender": "Female",
+    "dob": "1986-03-25",
+    "email": "sarah.garcia@example.com",
+    "phone": "1473692580",
+    "status": "Inactive"
+  },
+  {
+    "name": "Sarah Garcia",
+    "gender": "Female",
+    "dob": "1986-03-25",
+    "email": "sarah.garcia@example.com",
+    "phone": "1473692580",
+    "status": "Active"
+  }
+]
