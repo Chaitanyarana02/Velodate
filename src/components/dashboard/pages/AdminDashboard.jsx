@@ -22,14 +22,14 @@ const AdminDashboard = () => {
 
           <div className="flex gap-[16px] items-center p-4 w-full md:w-1/2 h-[88px] bg-[#3D3B35] rounded-md">
             {/* <img src={dashUser} alt="dashUser" className="w-[64px] h-[64px]" /> */}
-            <img src="/dashboardAssets/dashUser.svg" alt="dashIemage" />
+            <img src="/dashboardAssets/dashActiveUser.svg" alt="dashIemage" />
 
             <div className="flex flex-col">
               <h4 className="text-[#FFFFFF] font-[Poppins] text-[32px] leading-[32px] font-semibold">
                 800
               </h4>
               <p className="my-2 text-[#C5C5C5] font-[Poppins] text-[14px] leading-[14px] font-normal">
-                New User
+                Active Users
               </p>
             </div>
           </div>
@@ -38,28 +38,28 @@ const AdminDashboard = () => {
         <div className="flex flex-col md:flex-row w-full gap-9">
           <div className="flex gap-[16px] items-center p-4 w-full md:w-1/2 h-[88px] bg-[#3D3B35] rounded-md">
             {/* <img src={dashUser} alt="dashUser" className="w-[64px] h-[64px]" /> */}
-            <img src="/dashboardAssets/dashUser.svg" alt="dashIemage" />
+            <img src="/dashboardAssets/dashSession.svg" alt="dashIemage" />
 
             <div className="flex flex-col">
               <h4 className="text-[#FFFFFF] font-[Poppins] text-[32px] leading-[32px] font-semibold">
                 800
               </h4>
               <p className="my-2 text-[#C5C5C5] font-[Poppins] text-[14px] leading-[14px] font-normal">
-                New User
+                Number of sessions
               </p>
             </div>
           </div>
 
           <div className="flex gap-[16px] items-center p-4 w-full md:w-1/2 h-[88px] bg-[#3D3B35] rounded-md">
             {/* <img src={dashUser} alt="dashUser" className="w-[64px] h-[64px]" /> */}
-            <img src="/dashboardAssets/dashUser.svg" alt="dashIemage" />
+            <img src="/dashboardAssets/dashMatchRatio.svg" alt="dashIemage" />
 
             <div className="flex flex-col">
               <h4 className="text-[#FFFFFF] font-[Poppins] text-[32px] leading-[32px] font-semibold">
                 60%
               </h4>
               <p className="my-2 text-[#C5C5C5] font-[Poppins] text-[14px] leading-[14px] font-normal">
-                New User
+                Match Ratio
               </p>
             </div>
           </div>

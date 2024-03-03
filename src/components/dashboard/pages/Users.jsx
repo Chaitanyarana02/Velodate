@@ -63,41 +63,6 @@ const Users = () => {
     };
   }, []);
 
-  // const userData = [
-  //   {
-  //     name: "John Doe",
-  //     gender: "Male",
-  //     dob: "1990-01-01",
-  //     email: "john@example.com",
-  //     phone: "1234567890",
-  //     status: "Active",
-  //   },
-  //   {
-  //     name: "John Doe",
-  //     gender: "Male",
-  //     dob: "1990-01-01",
-  //     email: "john@example.com",
-  //     phone: "1234567890",
-  //     status: "Active",
-  //   },
-  //   {
-  //     name: "John Doe",
-  //     gender: "Male",
-  //     dob: "1990-01-01",
-  //     email: "john@example.com",
-  //     phone: "1234567890",
-  //     status: "Active",
-  //   },
-  //   {
-  //     name: "John Doe",
-  //     gender: "Male",
-  //     dob: "1990-01-01",
-  //     email: "john@example.com",
-  //     phone: "1234567890",
-  //     status: "Active",
-  //   },
-  // ];
-
   const rowsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
