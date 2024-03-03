@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import userData from "../../../../userData.json";
+import { useNavigate } from "react-router-dom";
 
 const Users = () => {
   // sort dropdown
@@ -9,6 +10,8 @@ const Users = () => {
   const [femaleChecked, setFemaleChecked] = useState(false);
   const [activeChecked, setActiveChecked] = useState(false);
   const [inactiveChecked, setInactiveChecked] = useState(false);
+
+  const navigate = useNavigate();
 
   const dropdownRef = useRef(null);
 
@@ -283,6 +286,7 @@ const Users = () => {
               <div
                 key={startIndex + index}
                 className="w-full bg-[#3D3B35] rounded-2xl grid grid-cols-4 md:grid-cols-6 gap-4 p-2 my-[0.20rem] hover:border hover:border-[#D8A409] cursor-pointer items-center"
+                onClick={() => navigate("/user-profile")}
               >
                 {/* checkbox */}
                 <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 flex items-center">

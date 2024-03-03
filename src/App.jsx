@@ -10,9 +10,20 @@ const TitleUpdater = () => {
     const title =
       path === "/"
         ? "Home"
-        : path.slice(1).charAt(0).toUpperCase() + path.slice(2); // Convert path to title format
-    document.title = `Velodate - ${title}`; // Update title
+        : path.slice(1).charAt(0).toUpperCase() + path.slice(2);
+    document.title = `Velodate - ${title}`;
   }, [location]);
+
+  return null;
+};
+
+// scroll set on top
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return null;
 };
@@ -21,6 +32,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+        <ScrollToTop />
         <TitleUpdater />
         <Router />
       </BrowserRouter>

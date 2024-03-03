@@ -1,5 +1,6 @@
 export { default as AdminDashboard } from "./AdminDashboard";
 export { default as Users } from "./Users";
+export { default as UserProfile } from "./UserProfile";
 export { default as Reports } from "./Reports";
 export { default as ContactQuery } from "./ContactQuery";
 export { default as Notifications } from "./Notifications";

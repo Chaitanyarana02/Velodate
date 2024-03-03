@@ -12,6 +12,7 @@ import {
   Mail,
   Notifications,
   Reports,
+  UserProfile,
   Users,
 } from "../components/dashboard/pages";
 
@@ -30,6 +31,7 @@ const routes = () => {
       <Route path="/" element={<DashboardLayout />}>
         <Route path="/" index element={<AdminDashboard />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/user-profile" element={<UserProfile />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/contact-query" element={<ContactQuery />} />
         <Route path="/notifications" element={<Notifications />} />
