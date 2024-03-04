@@ -1,9 +1,14 @@
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const SideNavBar = () => {
+const SideNavBar = ({ isOpen }) => {
   return (
     <>
-      <div className="bg-[#3D3B35] text-white h-[768px] w-[72px] flex flex-col gap-[32px]">
+      <div
+        className={`bg-[#3D3B35] text-white h-[738px] w-[72px] md:flex flex-col gap-[32px] ${
+          isOpen ? "block" : "hidden"
+        }`}
+      >
         {/* logo */}
         <div className="p-4">
           <Link to={"/"}>
@@ -111,6 +116,10 @@ const SideNavBar = () => {
       </div>
     </>
   );
+};
+
+SideNavBar.propTypes = {
+  isOpen: PropTypes.bool,
 };
 
 export default SideNavBar;

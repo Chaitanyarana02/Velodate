@@ -10,6 +10,7 @@ const Users = () => {
   const [femaleChecked, setFemaleChecked] = useState(false);
   const [activeChecked, setActiveChecked] = useState(false);
   const [inactiveChecked, setInactiveChecked] = useState(false);
+  const [isEmailTruncated, setIsEmailTruncated] = useState(true);
 
   const navigate = useNavigate();
 
@@ -76,6 +77,16 @@ const Users = () => {
   // Function to handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  const toggleEmailTruncation = () => {
+    setIsEmailTruncated(!isEmailTruncated);
+  };
+
+  const handleUserClick = (user) => {
+    console.log("send the correct data from the users", user);
+    navigate("/user-profile", { state: { userData: user } });
+    // navigate("/user-profile");
   };
 
   return (
@@ -251,19 +262,20 @@ const Users = () => {
               <div
                 key={startIndex + index}
                 className="w-full bg-[#3D3B35] rounded-2xl grid grid-cols-4 md:grid-cols-6 gap-4 p-2 my-[0.20rem] hover:border hover:border-[#D8A409] cursor-pointer items-center"
-                onClick={() => navigate("/user-profile")}
+                onClick={() => handleUserClick(user)}
               >
                 {/* checkbox */}
-                <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 flex items-center">
+                <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 max-[340px]:flex-row-reverse max-[340px]:justify-between max-[340px]:w-full flex items-center ">
                   <input
                     type="checkbox"
                     name="checkbox"
                     id={`checkbox-${startIndex + index}`}
-                    className="w-4 h-4 mr-8"
+                    className="w-4 h-4 mr-8 max-[340px]:mr-[-2.6rem]"
                   />
                   <label
                     htmlFor={`checkbox-${startIndex + index}`}
                     className="text-[#FFFFFF] text-[14px] hover:text-[#D8A409]"
+                    // onClick={() => navigate("/user-profile")}
                   >
                     {user.name}
                   </label>
@@ -278,8 +290,17 @@ const Users = () => {
                 </div>
                 {/* email */}
                 <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
-                  {user.email}
-                </div>{" "}
+                  {/* Render truncated email with ellipsis */}
+                  <div
+                    style={{ cursor: "pointer" }}
+                    onClick={toggleEmailTruncation}
+                    title={user.email}
+                  >
+                    {isEmailTruncated
+                      ? user.email.slice(0, 10) + "..."
+                      : user.email}
+                  </div>
+                </div>
                 {/* phone number */}
                 <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
                   {user.phone}
@@ -303,7 +324,7 @@ const Users = () => {
 
       {/* Pagination */}
 
-      <div className="mt-4 px-4 flex items-center justify-between">
+      <div className="mt-4 px-4 flex items-center justify-between max-[449px]:flex-col">
         <h4 className="text-[#FFFFFF] text-[14px]">
           Show {rowsPerPage} rows per page
         </h4>

@@ -5,12 +5,12 @@ import TopNavBar from "./pages/TopNavBar";
 const DashboardLayout = () => {
   return (
     <>
-      <div className="flex w-full h-auto bg-black">
+      <div className="flex w-full min-h-screen bg-black">
         <div className="flex flex-col">
           <SideNavBar />
         </div>
 
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col flex-1">
           <TopNavBar />
 
           <Outlet />
