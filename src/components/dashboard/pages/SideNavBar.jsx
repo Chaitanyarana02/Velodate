@@ -5,7 +5,7 @@ const SideNavBar = ({ isOpen }) => {
   return (
     <>
       <div
-        className={`bg-[#3D3B35] text-white h-[738px] w-[72px] md:flex flex-col gap-[32px] ${
+        className={`bg-[#3D3B35] text-white flex-1 w-[72px] md:flex flex-col gap-[32px] ${
           isOpen ? "block" : "hidden"
         }`}
       >
@@ -104,7 +104,10 @@ const SideNavBar = ({ isOpen }) => {
 
           {/* Log-out */}
           <div>
-            <Link href="#" className="block p-1 rounded hover:bg-[#292824]">
+            <Link
+              href="#"
+              className="block p-1 mb-3 rounded hover:bg-[#292824]"
+            >
               <img
                 src="/sidTopNavAssets/sidNavLogOut.svg"
                 alt="sidNavLogOut"
