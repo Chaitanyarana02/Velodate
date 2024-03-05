@@ -50,7 +50,7 @@ const TopNavBar = () => {
       >
         {/* Left side */}
         <div>
-          <span className="text-lg font-bold font-[Poppins]">{pageName}</span>
+          <span className="text-lg font-bold">{pageName}</span>
         </div>
 
         {/* Right side */}
@@ -77,7 +77,7 @@ const TopNavBar = () => {
           />
 
           {/* Username */}
-          <span className="text-sm font-semibold font-[Poppins]">Gaurav</span>
+          <span className="text-sm font-semibold">Gaurav</span>
 
           {/* Notification icon */}
           <img

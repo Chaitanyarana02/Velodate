@@ -11,10 +11,10 @@ const AdminDashboard = () => {
             <img src="/dashboardAssets/dashUser.svg" alt="dashIemage" />
 
             <div className="flex flex-col">
-              <h4 className="text-[#FFFFFF] font-[Poppins] text-[32px] leading-[32px] font-semibold">
+              <h4 className="text-[#FFFFFF] text-[32px] leading-[32px] font-semibold">
                 400
               </h4>
-              <p className="my-2 text-[#C5C5C5] font-[Poppins] text-[14px] leading-[14px] font-normal">
+              <p className="my-2 text-[#C5C5C5] text-[14px] leading-[14px] font-normal">
                 New User
               </p>
             </div>
@@ -25,10 +25,10 @@ const AdminDashboard = () => {
             <img src="/dashboardAssets/dashActiveUser.svg" alt="dashIemage" />
 
             <div className="flex flex-col">
-              <h4 className="text-[#FFFFFF] font-[Poppins] text-[32px] leading-[32px] font-semibold">
+              <h4 className="text-[#FFFFFF] text-[32px] leading-[32px] font-semibold">
                 800
               </h4>
-              <p className="my-2 text-[#C5C5C5] font-[Poppins] text-[14px] leading-[14px] font-normal">
+              <p className="my-2 text-[#C5C5C5] text-[14px] leading-[14px] font-normal">
                 Active Users
               </p>
             </div>
@@ -41,10 +41,10 @@ const AdminDashboard = () => {
             <img src="/dashboardAssets/dashSession.svg" alt="dashIemage" />
 
             <div className="flex flex-col">
-              <h4 className="text-[#FFFFFF] font-[Poppins] text-[32px] leading-[32px] font-semibold">
+              <h4 className="text-[#FFFFFF] text-[32px] leading-[32px] font-semibold">
                 800
               </h4>
-              <p className="my-2 text-[#C5C5C5] font-[Poppins] text-[14px] leading-[14px] font-normal">
+              <p className="my-2 text-[#C5C5C5] text-[14px] leading-[14px] font-normal">
                 Number of sessions
               </p>
             </div>
@@ -55,10 +55,10 @@ const AdminDashboard = () => {
             <img src="/dashboardAssets/dashMatchRatio.svg" alt="dashIemage" />
 
             <div className="flex flex-col">
-              <h4 className="text-[#FFFFFF] font-[Poppins] text-[32px] leading-[32px] font-semibold">
+              <h4 className="text-[#FFFFFF] text-[32px] leading-[32px] font-semibold">
                 60%
               </h4>
-              <p className="my-2 text-[#C5C5C5] font-[Poppins] text-[14px] leading-[14px] font-normal">
+              <p className="my-2 text-[#C5C5C5] text-[14px] leading-[14px] font-normal">
                 Match Ratio
               </p>
             </div>
