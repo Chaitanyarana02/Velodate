@@ -270,7 +270,7 @@ const Subscriptions = () => {
               .map((notify, index) => (
                 <div
                   key={startIndex + index}
-                  className="w-full bg-[#3D3B35] rounded-2xl grid grid-cols-4 md:grid-cols-4 gap-12 p-2 my-[0.20rem] hover:border hover:border-[#D8A409] cursor-pointer items-center"
+                  className="w-full bg-[#3D3B35] rounded-2xl grid grid-cols-4 md:grid-cols-4 gap-12 p-[0.4rem] my-[0.2rem] hover:border hover:border-[#D8A409] cursor-pointer items-center"
                   onClick={() => handleUserClick(notify)}
                 >
                   {/* checkbox */}

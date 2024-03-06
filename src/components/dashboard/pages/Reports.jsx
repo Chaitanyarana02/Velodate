@@ -255,7 +255,7 @@ const Reports = () => {
             {reprotData.slice(startIndex, endIndex).map((report, index) => (
               <div
                 key={startIndex + index}
-                className="w-full bg-[#3D3B35] rounded-2xl grid grid-cols-4 md:grid-cols-5 gap-4 p-2 my-[0.20rem] hover:border hover:border-[#D8A409] cursor-pointer items-center"
+                className="w-full bg-[#3D3B35] rounded-2xl grid grid-cols-4 md:grid-cols-5 gap-4 p-[0.4rem] my-[0.2rem] hover:border hover:border-[#D8A409] cursor-pointer items-center"
               >
                 {/* checkbox */}
                 <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 max-[340px]:flex-row-reverse max-[340px]:justify-between max-[340px]:w-full flex items-center ">

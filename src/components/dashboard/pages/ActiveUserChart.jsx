@@ -5,41 +5,55 @@ import {
   ResponsiveContainer,
   YAxis,
   XAxis,
-  CartesianGrid,
-  Legend,
   Tooltip,
 } from "recharts";
 
 const productSales = [
   {
-    name: "Jan",
-    product1: 4000,
-    product2: 2400,
+    xname: "100",
+    yname: "0",
+    product1: 45,
   },
   {
-    name: "Feb",
-    product1: 3000,
-    product2: 2210,
+    xname: "500",
+    yname: "20",
+    product1: 40,
   },
   {
-    name: "Mar",
-    product1: 2000,
-    product2: 2290,
+    xname: "1,000",
+    yname: "40",
+    product1: 55,
   },
   {
-    name: "Apr",
-    product1: 2780,
-    product2: 2000,
+    xname: "1,500",
+    yname: "60",
+    product1: 65,
   },
   {
-    name: "May",
-    product1: 1890,
-    product2: 2181,
+    xname: "2,000",
+    yname: "80",
+    product1: 35,
   },
   {
-    name: "Jun",
-    product1: 2390,
-    product2: 2500,
+    xname: "2,500",
+    yname: "100",
+    product1: 45,
+  },
+  {
+    xname: "3,000",
+    product1: 48,
+  },
+  {
+    xname: "3,500",
+    product1: 33,
+  },
+  {
+    xname: "4,000",
+    product1: 39,
+  },
+  {
+    xname: "4,500",
+    product1: 64,
   },
 ];
 
@@ -51,27 +65,22 @@ const ActiveUserChart = () => {
 
         <ResponsiveContainer width="100%" height="88%">
           <AreaChart width={500} height={400} data={productSales}>
-            <YAxis />
-            <XAxis dataKey="name" />
-            <CartesianGrid strokeDasharray="5 5" />
+            <YAxis dataKey={"yname"} />
+
+            <XAxis dataKey="xname" />
+            {/* <CartesianGrid strokeDasharray="8 8" /> */}
 
             <Tooltip content={<CustomTooltip />} />
-            <Legend />
 
             <Area
               type="monotone"
               dataKey="product1"
-              stroke="#2563eb"
-              fill="#3b82f6"
+              stroke="#00000033"
+              fill="#00000033"
               stackId="1"
-            />
-
-            <Area
-              type="monotone"
-              dataKey="product2"
-              stroke="#7c3aed"
-              fill="#8b5cf6"
-              stackId="1"
+              dot={{ stroke: "#D8A409", fill: "#D8A409", strokeWidth: 1 }} // Customize dot appearance
+              strokeWidth={2}
+              strokeDasharray="0"
             />
           </AreaChart>
         </ResponsiveContainer>
@@ -80,18 +89,13 @@ const ActiveUserChart = () => {
   );
 };
 
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="p-4 bg-slate-900 flex flex-col gap-4 rounded-md">
-        <p className="text-medium text-lg">{label}</p>
-        <p className="text-sm text-blue-400">
-          Product 1:
+      <div className="p-4 bg-[#FFFFFF] flex flex-col gap-4 rounded-md">
+        <p className="text-medium text-lg">Active User</p>
+        <p className="text-lg text-[#000000] font-semibold">
           <span className="ml-2">${payload[0].value}</span>
-        </p>
-        <p className="text-sm text-indigo-400">
-          Product 2:
-          <span className="ml-2">${payload[1].value}</span>
         </p>
       </div>
     );
@@ -101,7 +105,6 @@ const CustomTooltip = ({ active, payload, label }) => {
 CustomTooltip.propTypes = {
   active: PropTypes.bool,
   payload: PropTypes.array,
-  label: PropTypes.string,
 };
 
 export default ActiveUserChart;
