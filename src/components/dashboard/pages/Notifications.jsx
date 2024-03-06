@@ -87,7 +87,7 @@ const Subscriptions = () => {
 
   return (
     <>
-      <div className="px-4 mt-4 w-full flex flex-col">
+      <div className="px-4 mt-4 w-full flex flex-col h-screen flex-1">
         {/* Filter and sort icons */}
         <div
           className="flex items-center justify-end gap-4 px-6 w-full"
