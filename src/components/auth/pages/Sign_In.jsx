@@ -12,7 +12,7 @@ const Sign_In = () => {
   return (
     <div className="flex justify-center w-full">
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center my-10 mx-4 md:mx-20">
-        <div className="w-full mb-8 md:mb-0 md:text-start">
+        <div className="w-full mb-8 md:text-start">
           <img
             src="/authAssets/velodate.svg"
             alt="velodate"
@@ -21,9 +21,10 @@ const Sign_In = () => {
         </div>
 
         <div className="md:text-start my-4 w-full">
-          <h1 className="text-[#F6F6F6] text-3xl font-semibold">Sign_In</h1>
+          <h1 className="text-[#F6F6F6] text-3xl font-medium">Sign in</h1>
           <p className="text-[#F6F6F6] text-[14px] font-normal">
-            Please provide required credentials to access your account.
+            Please provide required credentials to <br />
+            access your account.
           </p>
         </div>
 
@@ -95,7 +96,7 @@ const Sign_In = () => {
 
         <div className="w-full mt-4">
           <button className="bg-[#F3E4B5] text-[16px] text-[#000000] rounded-full p-2 w-10/12 md:w-3/4 lg:w-1/2">
-            Sign-in
+            Sign in
           </button>
         </div>
       </div>

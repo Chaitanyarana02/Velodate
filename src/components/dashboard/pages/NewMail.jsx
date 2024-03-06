@@ -20,7 +20,7 @@ const NewMail = () => {
         <div className="w-full">
           <div className="w-full flex justify-between items-center max-[464px]:flex-col">
             <h3 className="text-[#F6F6F6] text-[28px] font-semibold w-full">
-              Sent Notifications
+              Sent Emails
             </h3>
 
             {/* Delete and resend button */}

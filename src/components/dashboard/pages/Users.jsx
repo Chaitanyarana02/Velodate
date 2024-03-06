@@ -11,7 +11,6 @@ const Users = () => {
   const [femaleChecked, setFemaleChecked] = useState(false);
   const [activeChecked, setActiveChecked] = useState(false);
   const [inactiveChecked, setInactiveChecked] = useState(false);
-  const [isEmailTruncated, setIsEmailTruncated] = useState(true);
 
   const navigate = useNavigate();
 
@@ -80,10 +79,6 @@ const Users = () => {
     setCurrentPage(page);
   };
 
-  const toggleEmailTruncation = () => {
-    setIsEmailTruncated(!isEmailTruncated);
-  };
-
   const handleUserClick = (user) => {
     // console.log("send the correct data from the users", user);
     navigate("/user-profile", { state: { userData: user } });
@@ -95,7 +90,7 @@ const Users = () => {
       <div className="px-4 mt-2 w-full flex flex-col h-screen flex-1">
         {/* Filter and sort icons */}
         <div
-          className="flex items-center justify-end gap-4 px-6 w-full"
+          className="flex items-center justify-end gap-4 px-6 mt-1 w-full"
           ref={dropdownRef}
         >
           {/* filter icon */}
@@ -300,13 +295,10 @@ const Users = () => {
                 <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
                   {/* Render truncated email with ellipsis */}
                   <div
+                    className="overflow-x-auto"
                     style={{ cursor: "pointer" }}
-                    onClick={toggleEmailTruncation}
-                    title={user.email}
                   >
-                    {isEmailTruncated
-                      ? user.email.slice(0, 10) + "..."
-                      : user.email}
+                    {user.email}
                   </div>
                 </div>
                 {/* phone number */}

@@ -93,7 +93,7 @@ const ContactQuery = () => {
       <div className="px-4 mt-2 w-full flex flex-col h-screen flex-1">
         {/* Filter and sort icons */}
         <div
-          className="flex items-center justify-end gap-4 px-6 w-full"
+          className="flex items-center justify-end gap-4 px-6 mt-1 w-full"
           ref={dropdownRef}
         >
           {/* filter icon */}

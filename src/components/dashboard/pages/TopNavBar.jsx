@@ -108,7 +108,7 @@ const TopNavBar = () => {
   return (
     <>
       <div
-        className="text-[#F6F6F6] h-[64px] w-full flex items-center justify-between px-4 border-b border-[#C5C5C5] max-[363px]:px-2"
+        className="text-[#F6F6F6] h-[68px] w-full flex items-center justify-between px-4 border-b border-[#C5C5C5] max-[363px]:px-2"
         ref={sidebarRef}
       >
         {/* Left side */}

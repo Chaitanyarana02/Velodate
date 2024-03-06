@@ -33,13 +33,13 @@ const LogoutModel = ({ isOpenLogout, closeLogoutModal }) => {
             </div>
             <div className="w-full flex gap-4">
               <button
-                className="border-2 border-[#FFCF40] bg-[#D19D00] rounded-full text-[#000000] text-[16px] font-medium hover:bg-[#FFFFFF33] hover:text-[#FFFFFF] w-1/2 p-1"
+                className="border-2 border-[#FFCF40] bg-[#D19D00] rounded-full text-[#000000] text-[16px] font-medium w-1/2 p-1"
                 onClick={handleCloseModal}
               >
                 Cancle
               </button>
               <button
-                className="border-2 border-[#FFCF40] bg-[#D19D00] rounded-full text-[#000000] text-[16px] font-medium hover:bg-[#FFFFFF33] hover:text-[#FFFFFF] w-1/2 p-1"
+                className="border-2 border-[#FFCF40] bg-[#FFFFFF33] text-[#FFFFFF] rounded-full text-[16px] font-medium w-1/2 p-1"
                 onClick={handleCloseModal}
               >
                 Yes

@@ -86,147 +86,154 @@ const Mail = () => {
 
   return (
     <>
-      <div className="px-4 mt-4 w-full flex flex-col h-screen flex-1">
-        {/* Filter and sort icons */}
-        <div
-          className="flex items-center justify-end gap-4 px-6 w-full"
-          ref={dropdownRef}
-        >
-          <div className="">
-            <img
-              src="/usersAssets/plusIcon.svg"
-              alt="filter"
-              className="w-8 h-8 cursor-pointer"
-              onClick={() => navigate("/new-mail")}
-            />
-          </div>
+      <div className="px-4 mt-2 w-full flex flex-col h-screen flex-1">
+        <div className="w-full flex justify-between items-center max-[464px]:flex-col mt-1">
+          <h3 className="text-[#F6F6F6] text-[28px] font-semibold w-full">
+            Sent Emails
+          </h3>
 
-          {/* filter icon */}
-          <div className="relative">
-            <img
-              src="/usersAssets/filter.svg"
-              alt="filter"
-              className="w-8 h-8 cursor-pointer"
-              onClick={toggleReportFilter}
-            />
+          {/* Filter and sort icons */}
 
-            {/* Filter Drop-down */}
-            {isReportFilterOpen && (
-              <div className="absolute top-11 right-3 w-48 bg-[#3D3B35] rounded-md shadow-lg">
-                <div className="relative">
-                  <IoTriangleSharp className="absolute right-0 top-[-0.8rem] text-[#3D3B35]" />
-                </div>
+          <div
+            className="flex items-center justify-end gap-4 px-6 w-full"
+            ref={dropdownRef}
+          >
+            <div className="">
+              <img
+                src="/usersAssets/plusIcon.svg"
+                alt="filter"
+                className="w-8 h-8 cursor-pointer"
+                onClick={() => navigate("/new-mail")}
+              />
+            </div>
 
-                <div className="py-1">
-                  {/* gender */}
-                  <div className="p-2">
-                    <h1 className="text-[12px] text-[#F6F6F6]">Gender</h1>
-                    <div className="flex items-center my-4">
-                      <input
-                        type="checkbox"
-                        name="checkbox"
-                        id="filter-mail-checkbox"
-                        className="w-4 h-4 mr-2 cursor-pointer"
-                        checked={maleChecked}
-                        onChange={handleMaleChange}
-                      />
-                      <label
-                        htmlFor="filter-mail-checkbox"
-                        className="text-[#FFFFFF] text-[14px] cursor-pointer"
-                      >
-                        Male
-                      </label>
-                    </div>
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        name="checkbox"
-                        id="filter-female-checkbox"
-                        className="w-4 h-4 mr-2 cursor-pointer"
-                        checked={femaleChecked}
-                        onChange={handleFemaleChange}
-                      />
-                      <label
-                        htmlFor="filter-female-checkbox"
-                        className="text-[#FFFFFF] text-[14px] cursor-pointer"
-                      >
-                        Female
-                      </label>
-                    </div>
+            {/* filter icon */}
+            <div className="relative">
+              <img
+                src="/usersAssets/filter.svg"
+                alt="filter"
+                className="w-8 h-8 cursor-pointer"
+                onClick={toggleReportFilter}
+              />
+
+              {/* Filter Drop-down */}
+              {isReportFilterOpen && (
+                <div className="absolute top-11 right-3 w-48 bg-[#3D3B35] rounded-md shadow-lg">
+                  <div className="relative">
+                    <IoTriangleSharp className="absolute right-0 top-[-0.8rem] text-[#3D3B35]" />
                   </div>
 
-                  <hr />
-
-                  {/* status */}
-                  <div className="p-2">
-                    <h1 className="text-[12px] text-[#F6F6F6]">Status</h1>
-                    <div className="flex items-center my-4">
-                      <input
-                        type="checkbox"
-                        name="checkbox"
-                        id="filter-active-checkbox"
-                        className="w-4 h-4 mr-2 cursor-pointer"
-                        checked={activeChecked}
-                        onChange={handleActiveChange}
-                      />
-                      <label
-                        htmlFor="filter-active-checkbox"
-                        className="text-[#FFFFFF] text-[14px] cursor-pointer"
-                      >
-                        Active
-                      </label>
+                  <div className="py-1">
+                    {/* gender */}
+                    <div className="p-2">
+                      <h1 className="text-[12px] text-[#F6F6F6]">Gender</h1>
+                      <div className="flex items-center my-4">
+                        <input
+                          type="checkbox"
+                          name="checkbox"
+                          id="filter-mail-checkbox"
+                          className="w-4 h-4 mr-2 cursor-pointer"
+                          checked={maleChecked}
+                          onChange={handleMaleChange}
+                        />
+                        <label
+                          htmlFor="filter-mail-checkbox"
+                          className="text-[#FFFFFF] text-[14px] cursor-pointer"
+                        >
+                          Male
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          type="checkbox"
+                          name="checkbox"
+                          id="filter-female-checkbox"
+                          className="w-4 h-4 mr-2 cursor-pointer"
+                          checked={femaleChecked}
+                          onChange={handleFemaleChange}
+                        />
+                        <label
+                          htmlFor="filter-female-checkbox"
+                          className="text-[#FFFFFF] text-[14px] cursor-pointer"
+                        >
+                          Female
+                        </label>
+                      </div>
                     </div>
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        name="checkbox"
-                        id="filter-inactive-checkbox"
-                        className="w-4 h-4 mr-2 cursor-pointer"
-                        checked={inactiveChecked}
-                        onChange={handleInactiveChange}
-                      />
-                      <label
-                        htmlFor="filter-inactive-checkbox"
-                        className="text-[#FFFFFF] text-[14px] cursor-pointer"
-                      >
-                        Inactive
-                      </label>
+
+                    <hr />
+
+                    {/* status */}
+                    <div className="p-2">
+                      <h1 className="text-[12px] text-[#F6F6F6]">Status</h1>
+                      <div className="flex items-center my-4">
+                        <input
+                          type="checkbox"
+                          name="checkbox"
+                          id="filter-active-checkbox"
+                          className="w-4 h-4 mr-2 cursor-pointer"
+                          checked={activeChecked}
+                          onChange={handleActiveChange}
+                        />
+                        <label
+                          htmlFor="filter-active-checkbox"
+                          className="text-[#FFFFFF] text-[14px] cursor-pointer"
+                        >
+                          Active
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          type="checkbox"
+                          name="checkbox"
+                          id="filter-inactive-checkbox"
+                          className="w-4 h-4 mr-2 cursor-pointer"
+                          checked={inactiveChecked}
+                          onChange={handleInactiveChange}
+                        />
+                        <label
+                          htmlFor="filter-inactive-checkbox"
+                          className="text-[#FFFFFF] text-[14px] cursor-pointer"
+                        >
+                          Inactive
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
 
-          {/* sort icon */}
-          <div className="relative">
-            <img
-              src="/usersAssets/sort.svg"
-              alt="sort"
-              className="w-8 h-8 cursor-pointer"
-              onClick={toggleReportSort}
-            />
+            {/* sort icon */}
+            <div className="relative">
+              <img
+                src="/usersAssets/sort.svg"
+                alt="sort"
+                className="w-8 h-8 cursor-pointer"
+                onClick={toggleReportSort}
+              />
 
-            {/* Sort dropdown */}
-            {isReportSortOpen && (
-              <div className="absolute top-11 right-3 w-48 bg-[#3D3B35] rounded-md shadow-lg">
-                <div className="relative">
-                  <IoTriangleSharp className="absolute right-0 top-[-0.8rem] text-[#3D3B35]" />
+              {/* Sort dropdown */}
+              {isReportSortOpen && (
+                <div className="absolute top-11 right-3 w-48 bg-[#3D3B35] rounded-md shadow-lg">
+                  <div className="relative">
+                    <IoTriangleSharp className="absolute right-0 top-[-0.8rem] text-[#3D3B35]" />
+                  </div>
+
+                  <div className="py-1">
+                    <button className="block px-4 py-2 text-[14px] text-[#F6F6F6] hover:text-[#f6f6f2e2]">
+                      Old to new users
+                    </button>
+
+                    <hr />
+
+                    <button className="block px-4 py-2 text-[14px] text-[#F6F6F6] hover:text-[#f6f6f2e2]">
+                      New to old users
+                    </button>
+                  </div>
                 </div>
-
-                <div className="py-1">
-                  <button className="block px-4 py-2 text-[14px] text-[#F6F6F6] hover:text-[#f6f6f2e2]">
-                    Old to new users
-                  </button>
-
-                  <hr />
-
-                  <button className="block px-4 py-2 text-[14px] text-[#F6F6F6] hover:text-[#f6f6f2e2]">
-                    New to old users
-                  </button>
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
 
@@ -269,7 +276,7 @@ const Mail = () => {
               .map((notify, index) => (
                 <div
                   key={startIndex + index}
-                  className="w-full bg-[#3D3B35] rounded-2xl grid grid-cols-4 md:grid-cols-4 gap-12 p-[0.4rem] my-[0.2rem] hover:border hover:border-[#D8A409] cursor-pointer items-center"
+                  className="w-full bg-[#3D3B35] rounded-2xl grid grid-cols-4 md:grid-cols-4 gap-12 p-[0.4rem] my-[0.2rem] hover:border hover:border-[#D8A409] cursor-pointer items-center md:h-[3.2em] lg:h-[2.8em]"
                   onClick={() => handleUserClick(notify)}
                 >
                   {/* checkbox */}
