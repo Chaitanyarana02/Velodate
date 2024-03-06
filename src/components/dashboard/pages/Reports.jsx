@@ -1,35 +1,34 @@
 import { IoIosArrowDown } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
 import reprotData from "../../../../userReportData.json";
-import { useNavigate } from "react-router-dom";
+import { IoTriangleSharp } from "react-icons/io5";
 
 const Reports = () => {
   // sort dropdown
-  const [isSortOpen, setIsSortOpen] = useState(false);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isReportSortOpen, setIsReportSortOpen] = useState(false);
+  const [isReportFilterOpen, setIsReportFilterOpen] = useState(false);
   const [maleChecked, setMaleChecked] = useState(false);
   const [femaleChecked, setFemaleChecked] = useState(false);
   const [activeChecked, setActiveChecked] = useState(false);
   const [inactiveChecked, setInactiveChecked] = useState(false);
 
-  const navigate = useNavigate();
-
   const dropdownRef = useRef(null);
 
-  const toggleFilter = () => {
-    setIsFilterOpen(!isFilterOpen);
-    if (!isFilterOpen && isSortOpen) {
-      setIsSortOpen(false);
+  const toggleReportFilter = () => {
+    setIsReportFilterOpen(!isReportFilterOpen);
+    if (!isReportFilterOpen && isReportSortOpen) {
+      setIsReportSortOpen(false);
     }
   };
 
-  const toggleSort = () => {
-    setIsSortOpen(!isSortOpen);
-    if (!isSortOpen && isFilterOpen) {
-      setIsFilterOpen(false);
+  const toggleReportSort = () => {
+    setIsReportSortOpen(!isReportSortOpen);
+    if (!isReportSortOpen && isReportFilterOpen) {
+      setIsReportFilterOpen(false);
     }
   };
 
+  // handle to select and deselect the checkbox
   const handleMaleChange = () => {
     setMaleChecked(!maleChecked);
     setFemaleChecked(false);
@@ -53,8 +52,8 @@ const Reports = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsSortOpen(false);
-        setIsFilterOpen(false);
+        setIsReportSortOpen(false);
+        setIsReportFilterOpen(false);
       }
     };
 
@@ -79,12 +78,6 @@ const Reports = () => {
     setCurrentPage(page);
   };
 
-  const handleReportClick = (report) => {
-    console.log("send the correct data from the users", report);
-    navigate("/contact-query", { state: { reprotData: report } });
-    // navigate("/user-profile");
-  };
-
   return (
     <>
       <div className="px-4 mt-4 w-full flex flex-col">
@@ -94,44 +87,21 @@ const Reports = () => {
           ref={dropdownRef}
         >
           {/* filter icon */}
-          <img
-            src="/usersAssets/filter.svg"
-            alt="filter"
-            className="w-8 h-8 cursor-pointer"
-            onClick={toggleFilter}
-          />
+          <div className="relative">
+            <img
+              src="/usersAssets/filter.svg"
+              alt="filter"
+              className="w-8 h-8 cursor-pointer"
+              onClick={toggleReportFilter}
+            />
 
-          {/* sort icon */}
-          <img
-            src="/usersAssets/sort.svg"
-            alt="sort"
-            className="w-8 h-8 cursor-pointer"
-            onClick={toggleSort}
-          />
-
-          {/* Sort dropdown */}
-          {isSortOpen && (
-            <div className="relative">
-              <div className="absolute top-5 right-3 w-48 bg-[#3D3B35] rounded-md shadow-lg">
-                <div className="py-1">
-                  <button className="block px-4 py-2 text-[14px] text-[#F6F6F6] hover:text-[#f6f6f2e2]">
-                    Old to new users
-                  </button>
-
-                  <hr />
-
-                  <button className="block px-4 py-2 text-[14px] text-[#F6F6F6] hover:text-[#f6f6f2e2]">
-                    New to old users
-                  </button>
+            {/* Filter Drop-down */}
+            {isReportFilterOpen && (
+              <div className="absolute top-11 right-3 w-48 bg-[#3D3B35] rounded-md shadow-lg">
+                <div className="relative">
+                  <IoTriangleSharp className="absolute right-0 top-[-0.8rem] text-[#3D3B35]" />
                 </div>
-              </div>
-            </div>
-          )}
 
-          {/* Filter Drop-down */}
-          {isFilterOpen && (
-            <div className="relative">
-              <div className="absolute top-5 right-3 w-48 bg-[#3D3B35] rounded-md shadow-lg">
                 <div className="py-1">
                   {/* gender */}
                   <div className="p-2">
@@ -210,8 +180,39 @@ const Reports = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+
+          {/* sort icon */}
+          <div className="relative">
+            <img
+              src="/usersAssets/sort.svg"
+              alt="sort"
+              className="w-8 h-8 cursor-pointer"
+              onClick={toggleReportSort}
+            />
+
+            {/* Sort dropdown */}
+            {isReportSortOpen && (
+              <div className="absolute top-11 right-3 w-48 bg-[#3D3B35] rounded-md shadow-lg">
+                <div className="relative">
+                  <IoTriangleSharp className="absolute right-0 top-[-0.8rem] text-[#3D3B35]" />
+                </div>
+
+                <div className="py-1">
+                  <button className="block px-4 py-2 text-[14px] text-[#F6F6F6] hover:text-[#f6f6f2e2]">
+                    Old to new users
+                  </button>
+
+                  <hr />
+
+                  <button className="block px-4 py-2 text-[14px] text-[#F6F6F6] hover:text-[#f6f6f2e2]">
+                    New to old users
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Table */}
@@ -255,7 +256,6 @@ const Reports = () => {
               <div
                 key={startIndex + index}
                 className="w-full bg-[#3D3B35] rounded-2xl grid grid-cols-4 md:grid-cols-5 gap-4 p-2 my-[0.20rem] hover:border hover:border-[#D8A409] cursor-pointer items-center"
-                onClick={() => handleReportClick(report)}
               >
                 {/* checkbox */}
                 <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 max-[340px]:flex-row-reverse max-[340px]:justify-between max-[340px]:w-full flex items-center ">

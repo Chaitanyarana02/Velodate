@@ -9,9 +9,16 @@ import DashboardLayout from "../components/dashboard/DashboardLayout";
 import {
   AdminDashboard,
   ContactQuery,
+  ContactQueryDetailed,
   Mail,
+  NewMail,
+  NewNotifications,
   Notifications,
+  NotificationsPush,
+  PushMail,
   Reports,
+  ResetPassword,
+  SelfProfile,
   UserProfile,
   Users,
 } from "../components/dashboard/pages";
@@ -34,8 +41,18 @@ const routes = () => {
         <Route path="/user-profile" element={<UserProfile />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/contact-query" element={<ContactQuery />} />
+        <Route
+          path="/contact-query-detailed"
+          element={<ContactQueryDetailed />}
+        />
         <Route path="/notifications" element={<Notifications />} />
+        <Route path="/push-notifications" element={<NotificationsPush />} />
         <Route path="/mail" element={<Mail />} />
+        <Route path="/push-mail" element={<PushMail />} />
+        <Route path="/self-profile" element={<SelfProfile />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/new-notifications" element={<NewNotifications />} />
+        <Route path="/new-mail" element={<NewMail />} />
       </Route>
     </Routes>
   );

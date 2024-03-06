@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import userData from "../../../../userData.json";
 import { useNavigate } from "react-router-dom";
+import { IoTriangleSharp } from "react-icons/io5";
 
 const Users = () => {
   // sort dropdown
-  const [isSortOpen, setIsSortOpen] = useState(false);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isUserSortOpen, setIsUserSortOpen] = useState(false);
+  const [isUserFilterOpen, setIsUserFilterOpen] = useState(false);
   const [maleChecked, setMaleChecked] = useState(false);
   const [femaleChecked, setFemaleChecked] = useState(false);
   const [activeChecked, setActiveChecked] = useState(false);
@@ -16,17 +17,17 @@ const Users = () => {
 
   const dropdownRef = useRef(null);
 
-  const toggleFilter = () => {
-    setIsFilterOpen(!isFilterOpen);
-    if (!isFilterOpen && isSortOpen) {
-      setIsSortOpen(false);
+  const toggleUserFilter = () => {
+    setIsUserFilterOpen(!isUserFilterOpen);
+    if (!isUserFilterOpen && isUserSortOpen) {
+      setIsUserSortOpen(false);
     }
   };
 
-  const toggleSort = () => {
-    setIsSortOpen(!isSortOpen);
-    if (!isSortOpen && isFilterOpen) {
-      setIsFilterOpen(false);
+  const toggleUserSort = () => {
+    setIsUserSortOpen(!isUserSortOpen);
+    if (!isUserSortOpen && isUserFilterOpen) {
+      setIsUserFilterOpen(false);
     }
   };
 
@@ -53,8 +54,8 @@ const Users = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsSortOpen(false);
-        setIsFilterOpen(false);
+        setIsUserSortOpen(false);
+        setIsUserFilterOpen(false);
       }
     };
 
@@ -84,7 +85,7 @@ const Users = () => {
   };
 
   const handleUserClick = (user) => {
-    console.log("send the correct data from the users", user);
+    // console.log("send the correct data from the users", user);
     navigate("/user-profile", { state: { userData: user } });
     // navigate("/user-profile");
   };
@@ -98,44 +99,20 @@ const Users = () => {
           ref={dropdownRef}
         >
           {/* filter icon */}
-          <img
-            src="/usersAssets/filter.svg"
-            alt="filter"
-            className="w-8 h-8 cursor-pointer"
-            onClick={toggleFilter}
-          />
-
-          {/* sort icon */}
-          <img
-            src="/usersAssets/sort.svg"
-            alt="sort"
-            className="w-8 h-8 cursor-pointer"
-            onClick={toggleSort}
-          />
-
-          {/* Sort dropdown */}
-          {isSortOpen && (
-            <div className="relative">
-              <div className="absolute top-5 right-3 w-48 bg-[#3D3B35] rounded-md shadow-lg">
-                <div className="py-1">
-                  <button className="block px-4 py-2 text-[14px] text-[#F6F6F6] hover:text-[#f6f6f2e2]">
-                    Old to new users
-                  </button>
-
-                  <hr />
-
-                  <button className="block px-4 py-2 text-[14px] text-[#F6F6F6] hover:text-[#f6f6f2e2]">
-                    New to old users
-                  </button>
+          <div className="relative">
+            <img
+              src="/usersAssets/filter.svg"
+              alt="filter"
+              className="w-8 h-8 cursor-pointer"
+              onClick={toggleUserFilter}
+            />
+            {/* Filter Drop-down */}
+            {isUserFilterOpen && (
+              <div className="absolute top-11 right-3 w-48 bg-[#3D3B35] rounded-md shadow-lg">
+                <div className="relative">
+                  <IoTriangleSharp className="absolute right-0 top-[-0.8rem] text-[#3D3B35]" />
                 </div>
-              </div>
-            </div>
-          )}
 
-          {/* Filter Drop-down */}
-          {isFilterOpen && (
-            <div className="relative">
-              <div className="absolute top-5 right-3 w-48 bg-[#3D3B35] rounded-md shadow-lg">
                 <div className="py-1">
                   {/* gender */}
                   <div className="p-2">
@@ -214,8 +191,39 @@ const Users = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+
+          {/* sort icon */}
+          <div className="relative">
+            <img
+              src="/usersAssets/sort.svg"
+              alt="sort"
+              className="w-8 h-8 cursor-pointer"
+              onClick={toggleUserSort}
+            />
+
+            {/* Sort dropdown */}
+            {isUserSortOpen && (
+              <div className="absolute top-11 right-3 w-48 bg-[#3D3B35] rounded-md shadow-lg">
+                <div className="relative">
+                  <IoTriangleSharp className="absolute right-0 top-[-0.8rem] text-[#3D3B35]" />
+                </div>
+
+                <div className="py-1">
+                  <button className="block px-4 py-2 text-[14px] text-[#F6F6F6] hover:text-[#f6f6f2e2]">
+                    Old to new users
+                  </button>
+
+                  <hr />
+
+                  <button className="block px-4 py-2 text-[14px] text-[#F6F6F6] hover:text-[#f6f6f2e2]">
+                    New to old users
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Table */}

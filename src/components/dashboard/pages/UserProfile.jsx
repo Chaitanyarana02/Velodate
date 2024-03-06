@@ -1,14 +1,45 @@
+import { useState } from "react";
 import { FaLessThan } from "react-icons/fa6";
 import { IoLocationOutline } from "react-icons/io5";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
+  const [switch1, setSwitch1] = useState(false);
+  const [switch2, setSwitch2] = useState(false);
+  const [switch3, setSwitch3] = useState(false);
+  const [switch4, setSwitch4] = useState(false);
+  const [switch5, setSwitch5] = useState(false);
+  const [switch6, setSwitch6] = useState(false);
+
   const navigate = useNavigate();
 
   const location = useLocation();
   const { userData } = location.state;
 
+  const toggleSwitch1 = () => {
+    setSwitch1(!switch1);
+  };
+
+  const toggleSwitch2 = () => {
+    setSwitch2(!switch2);
+  };
+
+  const toggleSwitch3 = () => {
+    setSwitch3(!switch3);
+  };
+
+  const toggleSwitch4 = () => {
+    setSwitch4(!switch4);
+  };
+
+  const toggleSwitch5 = () => {
+    setSwitch5(!switch5);
+  };
+
+  const toggleSwitch6 = () => {
+    setSwitch6(!switch6);
+  };
   // console.log("send the correct data from the usersProfile", userData);
 
   return (
@@ -108,10 +139,61 @@ const UserProfile = () => {
               <h1 className="m-0 p-0 text-[16px]">New Messages</h1>
               <h1 className="m-0 p-0 text-[16px]">Announcements</h1>
             </div>
+
             <div className="flex flex-col gap-6">
-              <img src="/usersAssets/userSwitchIcon.svg" alt="userSwitchIcon" />
-              <img src="/usersAssets/userSwitchIcon.svg" alt="userSwitchIcon" />
-              <img src="/usersAssets/userSwitchIcon.svg" alt="userSwitchIcon" />
+              <div>
+                {switch1 ? (
+                  <img
+                    src="/usersAssets/userSwitchOnIcon.svg"
+                    alt="userSwitchOnIcon"
+                    className="cursor-pointer"
+                    onClick={toggleSwitch1}
+                  />
+                ) : (
+                  <img
+                    src="/usersAssets/userSwitchOffIcon.svg"
+                    alt="userSwitchOffIcon"
+                    className="cursor-pointer"
+                    onClick={toggleSwitch1}
+                  />
+                )}
+              </div>
+
+              <div>
+                {switch2 ? (
+                  <img
+                    src="/usersAssets/userSwitchOnIcon.svg"
+                    alt="userSwitchOnIcon"
+                    className="cursor-pointer"
+                    onClick={toggleSwitch2}
+                  />
+                ) : (
+                  <img
+                    src="/usersAssets/userSwitchOffIcon.svg"
+                    alt="userSwitchOffIcon"
+                    className="cursor-pointer"
+                    onClick={toggleSwitch2}
+                  />
+                )}
+              </div>
+
+              <div>
+                {switch3 ? (
+                  <img
+                    src="/usersAssets/userSwitchOnIcon.svg"
+                    alt="userSwitchOnIcon"
+                    className="cursor-pointer"
+                    onClick={toggleSwitch3}
+                  />
+                ) : (
+                  <img
+                    src="/usersAssets/userSwitchOffIcon.svg"
+                    alt="userSwitchOffIcon"
+                    className="cursor-pointer"
+                    onClick={toggleSwitch3}
+                  />
+                )}
+              </div>
             </div>
           </div>
           <h1 className="m-0 p-0 text-[12px]">What’s new on VeloDate</h1>
@@ -131,9 +213,59 @@ const UserProfile = () => {
               <h1 className="m-0 p-0 text-[16px]">Announcements</h1>
             </div>
             <div className="flex flex-col gap-6">
-              <img src="/usersAssets/userSwitchIcon.svg" alt="userSwitchIcon" />
-              <img src="/usersAssets/userSwitchIcon.svg" alt="userSwitchIcon" />
-              <img src="/usersAssets/userSwitchIcon.svg" alt="userSwitchIcon" />
+              <div>
+                {switch4 ? (
+                  <img
+                    src="/usersAssets/userSwitchOnIcon.svg"
+                    alt="userSwitchOnIcon"
+                    className="cursor-pointer"
+                    onClick={toggleSwitch4}
+                  />
+                ) : (
+                  <img
+                    src="/usersAssets/userSwitchOffIcon.svg"
+                    alt="userSwitchOffIcon"
+                    className="cursor-pointer"
+                    onClick={toggleSwitch4}
+                  />
+                )}
+              </div>
+
+              <div>
+                {switch5 ? (
+                  <img
+                    src="/usersAssets/userSwitchOnIcon.svg"
+                    alt="userSwitchOnIcon"
+                    className="cursor-pointer"
+                    onClick={toggleSwitch5}
+                  />
+                ) : (
+                  <img
+                    src="/usersAssets/userSwitchOffIcon.svg"
+                    alt="userSwitchOffIcon"
+                    className="cursor-pointer"
+                    onClick={toggleSwitch5}
+                  />
+                )}
+              </div>
+
+              <div>
+                {switch6 ? (
+                  <img
+                    src="/usersAssets/userSwitchOnIcon.svg"
+                    alt="userSwitchOnIcon"
+                    className="cursor-pointer"
+                    onClick={toggleSwitch6}
+                  />
+                ) : (
+                  <img
+                    src="/usersAssets/userSwitchOffIcon.svg"
+                    alt="userSwitchOffIcon"
+                    className="cursor-pointer"
+                    onClick={toggleSwitch6}
+                  />
+                )}
+              </div>
             </div>
           </div>
           <h1 className="m-0 p-0 text-[12px]">What’s new on VeloDate</h1>
