@@ -239,7 +239,7 @@ const Subscriptions = () => {
         {/* Table */}
         <div className="w-full flex flex-col items-center">
           {/* Table Head */}
-          <div className="w-full grid grid-cols-4 gap-4 p-2 my-6">
+          <div className="w-full grid grid-cols-4 gap-4 p-2 my-2">
             {/* checkbox */}
             <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 flex items-center">
               <input
@@ -326,7 +326,11 @@ const Subscriptions = () => {
             disabled={currentPage === 1}
             className="px-3 py-1 rounded-lg text-[#FFFFFF] text-2xl mr-2 focus:outline-none"
           >
-            {"<"}
+            <img
+              src="/usersAssets/paginationLessThan.svg"
+              alt="paginationLessThan"
+              className="w-[24px] h-[24px]"
+            />
           </button>
           <button
             onClick={() => handlePageChange(1)}
@@ -384,7 +388,11 @@ const Subscriptions = () => {
             disabled={currentPage === totalPages}
             className="px-3 py-1 rounded-lg text-white text-2xl mr-2 focus:outline-none"
           >
-            {">"}
+            <img
+              src="/usersAssets/paginationGreaterThan.svg"
+              alt="paginationGreaterThan"
+              className="w-[24px] h-[24px]"
+            />
           </button>
         </div>
       </div>

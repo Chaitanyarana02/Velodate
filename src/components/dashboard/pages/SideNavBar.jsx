@@ -25,7 +25,7 @@ const SideNavBar = ({ isOpen }) => {
           <ul className="flex items-center flex-col gap-[32px]">
             {/* dashboard */}
             <li className="">
-              <Link to="/" className="block p-1 rounded hover:bg-[#292824]">
+              <Link to="/" className="block p-1 rounded focus:bg-[#292824]">
                 <img
                   src="/sidTopNavAssets/home-icon.svg"
                   alt="home_icon"
@@ -38,7 +38,7 @@ const SideNavBar = ({ isOpen }) => {
             <li className="">
               <Link
                 to="/users"
-                className="block p-1 rounded hover:bg-[#292824]"
+                className="block p-1 rounded focus:bg-[#292824]"
               >
                 <img
                   src="/sidTopNavAssets/sidNav_user-icon.svg"
@@ -52,7 +52,7 @@ const SideNavBar = ({ isOpen }) => {
             <li className="">
               <Link
                 to="/reports"
-                className="block p-1 rounded hover:bg-[#292824]"
+                className="block p-1 rounded focus:bg-[#292824]"
               >
                 <img
                   src="/sidTopNavAssets/report.svg"
@@ -66,7 +66,7 @@ const SideNavBar = ({ isOpen }) => {
             <li className="">
               <Link
                 to="/contact-query"
-                className="block p-1 rounded hover:bg-[#292824]"
+                className="block p-1 rounded focus:bg-[#292824]"
               >
                 <img
                   src="/sidTopNavAssets/contactQuery.svg"
@@ -80,7 +80,7 @@ const SideNavBar = ({ isOpen }) => {
             <li className="">
               <Link
                 to="/notifications"
-                className="block p-1 rounded hover:bg-[#292824]"
+                className="block p-1 rounded focus:bg-[#292824]"
               >
                 <img
                   src="/sidTopNavAssets/sidNavNotifications.svg"
@@ -92,7 +92,7 @@ const SideNavBar = ({ isOpen }) => {
 
             {/* mail */}
             <li className="">
-              <Link to="/mail" className="block p-1 rounded hover:bg-[#292824]">
+              <Link to="/mail" className="block p-1 rounded focus:bg-[#292824]">
                 <img
                   src="/sidTopNavAssets/sidNavMail.svg"
                   alt="sidNavMail"
@@ -106,7 +106,7 @@ const SideNavBar = ({ isOpen }) => {
           <div>
             <Link
               href="#"
-              className="block p-1 mb-3 rounded hover:bg-[#292824]"
+              className="block p-1 mb-3 rounded focus:bg-[#292824]"
             >
               <img
                 src="/sidTopNavAssets/sidNavLogOut.svg"

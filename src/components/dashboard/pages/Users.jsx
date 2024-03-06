@@ -336,7 +336,11 @@ const Users = () => {
             disabled={currentPage === 1}
             className="px-3 py-1 rounded-lg text-[#FFFFFF] text-2xl mr-2 focus:outline-none"
           >
-            {"<"}
+            <img
+              src="/usersAssets/paginationLessThan.svg"
+              alt="paginationLessThan"
+              className="w-[24px] h-[24px]"
+            />
           </button>
           <button
             onClick={() => handlePageChange(1)}
@@ -394,7 +398,11 @@ const Users = () => {
             disabled={currentPage === totalPages}
             className="px-3 py-1 rounded-lg text-white text-2xl mr-2 focus:outline-none"
           >
-            {">"}
+            <img
+              src="/usersAssets/paginationGreaterThan.svg"
+              alt="paginationGreaterThan"
+              className="w-[24px] h-[24px]"
+            />
           </button>
         </div>
       </div>
