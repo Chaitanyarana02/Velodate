@@ -128,7 +128,7 @@ const CustomTooltip = ({ active, payload }) => {
       <div className="p-4 bg-[#FFFFFF] flex flex-col gap-4 rounded-md">
         <p className="text-medium text-lg">Active User</p>
         <p className="text-lg text-[#000000] font-semibold">
-          <span className="ml-2">${payload[0].value}</span>
+          <span className="ml-2">{payload[0].value}</span>
         </p>
       </div>
     );
