@@ -71,7 +71,7 @@ const AdminDashboard = () => {
           <ActiveUserChart />
         </div>
 
-        <div className="mt-5 w-full">
+        <div className="my-5 w-full">
           <Visitors />
         </div>
       </div>

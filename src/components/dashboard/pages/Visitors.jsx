@@ -6,6 +6,7 @@ import {
   YAxis,
   XAxis,
   Tooltip,
+  ReferenceLine,
 } from "recharts";
 
 const productSales = [
@@ -58,19 +59,49 @@ const productSales = [
 ];
 
 const Visitors = () => {
+  const yAxisValues = productSales.map((data) => parseFloat(data.yname));
+
   return (
     <>
-      <div className="w-full h-[392.12px] shadow-md rounded-md bg-[#3D3B35]">
-        <h1 className="text-[#FFFFFF] font-normal my-2 p-2">Visitors</h1>
+      <div className="w-full h-[329.12px] shadow-md rounded-md bg-[#3D3B35]">
+        <h1 className="text-[#FFFFFF] font-normal my-2 px-4 py-1">Visitors</h1>
 
-        <ResponsiveContainer width="100%" height="88%">
+        <ResponsiveContainer width="100%" height="83%">
           <AreaChart width={500} height={400} data={productSales}>
-            <YAxis dataKey={"yname"} />
+            <YAxis
+              dataKey={"yname"}
+              axisLine={false}
+              tickLine={false}
+              label={{
+                value: "Days",
+                angle: -90,
+                position: "insideLeft",
+                dy: -10,
+              }}
+            />
 
-            <XAxis dataKey="xname" />
-            {/* <CartesianGrid strokeDasharray="8 8" /> */}
+            <XAxis
+              dataKey="xname"
+              axisLine={false}
+              tickLine={false}
+              label={{
+                value: "Visitors",
+                position: "insideBottom",
+                dy: 10,
+              }}
+            />
 
             <Tooltip content={<CustomTooltip />} />
+
+            {yAxisValues.map((value, index) => (
+              <ReferenceLine
+                key={index}
+                y={value}
+                stroke="#FFFFFF"
+                strokeWidth={0.1}
+                strokeDasharray="0"
+              />
+            ))}
 
             <Area
               type="monotone"
@@ -78,7 +109,7 @@ const Visitors = () => {
               stroke="#00000033"
               fill="#00000033"
               stackId="1"
-              dot={{ stroke: "#D8A409", fill: "#D8A409", strokeWidth: 1 }} // Customize dot appearance
+              dot={{ stroke: "#D8A409", fill: "#D8A409", strokeWidth: 1 }}
               strokeWidth={2}
               strokeDasharray="0"
             />
