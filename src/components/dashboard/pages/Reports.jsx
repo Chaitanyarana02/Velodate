@@ -80,7 +80,7 @@ const Reports = () => {
 
   return (
     <>
-      <div className="px-4 mt-4 w-full flex flex-col">
+      <div className="px-4 mt-2 w-full flex flex-col">
         {/* Filter and sort icons */}
         <div
           className="flex items-center justify-end gap-4 px-6 w-full"
@@ -218,7 +218,7 @@ const Reports = () => {
         {/* Table */}
         <div className="w-full flex flex-col items-center">
           {/* Table Head */}
-          <div className="w-full grid grid-cols-5 gap-4 p-2 my-6">
+          <div className="w-full grid grid-cols-5 gap-4 p-2 my-2">
             {/* checkbox */}
             <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 flex items-center">
               <input
@@ -292,12 +292,12 @@ const Reports = () => {
                 {/* Status */}
                 <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px] w-3/4 max-[549px]:w-full">
                   {report.status.toLowerCase() === "active" ? (
-                    <span className="flex justify-between items-center p-2 bg-[#CD256133] rounded-full text-center border-2 border-[#CD2561]">
+                    <span className="flex justify-between items-center py-1 px-2 bg-[#CD256133] rounded-full text-center border-2 border-[#CD2561]">
                       {report.status}
                       <IoIosArrowDown className="mr-2" />
                     </span>
                   ) : (
-                    <span className="flex justify-between items-center p-2 bg-[#25CD7C33] rounded-full text-center border-2 border-[#25CD7C33]">
+                    <span className="flex justify-between items-center py-1 px-2 bg-[#25CD7C33] rounded-full text-center border-2 border-[#25CD7C33]">
                       {report.status}
                       <IoIosArrowDown className="mr-2" />
                     </span>
@@ -311,7 +311,7 @@ const Reports = () => {
 
       {/* Pagination */}
 
-      <div className="mt-4 px-4 flex items-center justify-between max-[449px]:flex-col">
+      <div className="mt-2 px-4 flex items-center justify-between max-[449px]:flex-col">
         <h4 className="text-[#FFFFFF] text-[14px]">
           Show {rowsPerPage} rows per page
         </h4>
