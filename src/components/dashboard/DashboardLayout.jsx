@@ -6,7 +6,7 @@ const DashboardLayout = () => {
   return (
     <>
       <div className="flex w-full min-h-screen bg-black">
-        <div className="flex flex-col max-h-screen">
+        <div className="flex flex-col max-h-screen sticky top-0 opacity-100 z-50">
           <SideNavBar />
         </div>
 
