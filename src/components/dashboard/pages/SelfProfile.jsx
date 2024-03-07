@@ -30,7 +30,7 @@ const SelfProfile = () => {
               alt="usersAssets/userProfile"
             />
             <div className="flex flex-col">
-              <h1 className="text-[#D19D00] font-semibold text-2xl">Gaurav</h1>
+              <h1 className="text-[#D19D00] font-semibold text-2xl">Admin</h1>
               <div className="flex items-center gap-2">
                 <IoLocationOutline className="text-[#F6F6F6]" />
                 <p className="text-[#F6F6F6] text-md">Los Angles</p>
