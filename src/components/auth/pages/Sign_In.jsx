@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Sign_In = () => {
   const [signInShowPassword, setSignInShowPassword] = useState(false);
   const [signInInputType, setSignInInputType] = useState("password");
+  const navigate = useNavigate();
 
   const toggleSignInPasswordVisibility = () => {
     setSignInShowPassword(!signInShowPassword);
@@ -95,7 +97,10 @@ const Sign_In = () => {
         </div>
 
         <div className="w-full mt-4">
-          <button className="bg-[#F3E4B5] text-[16px] text-[#000000] rounded-full p-2 w-10/12 md:w-3/4 lg:w-1/2">
+          <button
+            className="bg-[#F3E4B5] text-[16px] text-[#000000] rounded-full p-2 w-10/12 md:w-3/4 lg:w-1/2"
+            onClick={() => navigate("/")}
+          >
             Sign in
           </button>
         </div>

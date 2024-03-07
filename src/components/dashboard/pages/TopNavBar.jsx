@@ -145,7 +145,7 @@ const TopNavBar = () => {
             />
 
             {/* Username */}
-            <span className="text-sm font-semibold">Gaurav</span>
+            <span className="text-sm font-semibold">Admin</span>
 
             {/* Sort dropdown */}
             {isProfile && (
