@@ -18,6 +18,7 @@ const SelfProfile = () => {
     <>
       <div className="px-4 mt-4 w-full flex  flex-col mb-8">
         {/* left side user profile and name */}
+
         <div className="w-full flex flex-col md:flex-row md:justify-between md:items-center">
           <div className="flex gap-4 items-start w-full">
             <FaLessThan
