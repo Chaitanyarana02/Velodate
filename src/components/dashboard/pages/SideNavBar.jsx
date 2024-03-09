@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const SideNavBar = ({ isOpen }) => {
+const SideNavBar = ({ isOpen, isSibeBarColse }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const [colorChnageDashboard, setColorChnageDashboard] = useState(false);
@@ -16,8 +16,12 @@ const SideNavBar = ({ isOpen }) => {
   const [focusedItem, setFocusedItem] = useState(null);
   const location = useLocation();
 
-  const handleFocus = (itemName) => {
+  // console.log(isSibeBarColse);
+
+  const handleFocus = (itemName, event) => {
     setFocusedItem(itemName);
+    isSibeBarColse(false);
+    event.preventDefault();
   };
 
   // update the focus sate based on the clik user
@@ -57,7 +61,7 @@ const SideNavBar = ({ isOpen }) => {
       >
         {/* logo */}
         <div className="p-4">
-          <Link to={"/"}>
+          <Link to={"/"} onClick={(e) => handleFocus("dashboard", e)}>
             <img
               src={
                 isHovered || isOpen
@@ -92,7 +96,7 @@ const SideNavBar = ({ isOpen }) => {
                     ? "w-full flex items-center gap-2 justify-start px-4 py-2"
                     : "block p-2"
                 }`}
-                onClick={() => handleFocus("dashboard")}
+                onClick={(e) => handleFocus("dashboard", e)}
               >
                 <img
                   src={
@@ -130,7 +134,7 @@ const SideNavBar = ({ isOpen }) => {
                     ? "w-full flex items-center gap-2 justify-start px-4 py-2"
                     : "block p-2"
                 }`}
-                onClick={() => handleFocus("user")}
+                onClick={(e) => handleFocus("user", e)}
               >
                 <img
                   src={
@@ -168,7 +172,7 @@ const SideNavBar = ({ isOpen }) => {
                     ? "w-full flex items-center gap-2 justify-start px-4 py-2"
                     : "block p-2"
                 }`}
-                onClick={() => handleFocus("reports")}
+                onClick={(e) => handleFocus("reports", e)}
               >
                 <img
                   src={
@@ -206,7 +210,7 @@ const SideNavBar = ({ isOpen }) => {
                     ? "w-full flex items-center gap-2 justify-start px-4 py-2"
                     : "block p-2"
                 }`}
-                onClick={() => handleFocus("contactQuery")}
+                onClick={(e) => handleFocus("contactQuery", e)}
               >
                 <img
                   src={
@@ -244,7 +248,7 @@ const SideNavBar = ({ isOpen }) => {
                     ? "w-full flex items-center gap-2 justify-start px-4 py-2"
                     : "block p-2"
                 }`}
-                onClick={() => handleFocus("notification")}
+                onClick={(e) => handleFocus("notification", e)}
               >
                 <img
                   src={
@@ -284,7 +288,7 @@ const SideNavBar = ({ isOpen }) => {
                     ? "w-full flex items-center gap-2 justify-start px-4 py-2"
                     : "block p-2"
                 }`}
-                onClick={() => handleFocus("mail")}
+                onClick={(e) => handleFocus("mail", e)}
               >
                 <img
                   src={
@@ -323,7 +327,7 @@ const SideNavBar = ({ isOpen }) => {
                   ? "w-full flex items-center gap-2 justify-start px-4 py-2"
                   : "block p-2"
               }`}
-              onClick={() => handleFocus("logOut")}
+              onClick={(e) => handleFocus("logOut", e)}
             >
               <img
                 src={
@@ -357,6 +361,7 @@ const SideNavBar = ({ isOpen }) => {
 
 SideNavBar.propTypes = {
   isOpen: PropTypes.bool,
+  isSibeBarColse: PropTypes.bool,
 };
 
 export default SideNavBar;
