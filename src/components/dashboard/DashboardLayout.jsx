@@ -5,9 +5,18 @@ import TopNavBar from "./pages/TopNavBar";
 const DashboardLayout = () => {
   return (
     <>
-      <div className="flex w-full min-h-screen bg-black">
-        <div className="flex flex-col max-h-screen sticky top-0 opacity-100 z-50">
-          <SideNavBar />
+      <div className="flex w-full min-h-screen bg-black relative">
+        <div className="sticky top-0 opacity-100 z-50 max-h-screen">
+          <div
+            className="w-[72px] hidden md:flex flex-col"
+            style={{
+              visibility: "hidden",
+            }}
+          ></div>
+
+          <div className="flex flex-col h-screen absolute">
+            <SideNavBar />
+          </div>
         </div>
 
         <div className="w-full flex flex-col flex-1">

@@ -123,7 +123,7 @@ const TopNavBar = () => {
             <input
               type="text"
               placeholder="Search"
-              className="bg-[#3D3B35] px-4 py-1 rounded-3xl text-white pl-4"
+              className="bg-[#3D3B35] px-4 py-1 rounded-3xl text-white pl-4 outline-none focus:ring-1 focus:ring-[#D8A409] focus:border focus:border-[#D8A409] focus:outline-none"
             />
             <img
               src="/sidTopNavAssets/search-icon.svg"
@@ -299,7 +299,7 @@ const TopNavBar = () => {
 
         {/* Sidebar */}
         {isSidebarOpen && (
-          <div className="h-full fixed right-0 top-[4.2rem] z-50">
+          <div className="fixed right-0 top-0 opacity-100 z-50 min-h-screen flex-1">
             <SideNavBar isOpen={isSidebarOpen} />
           </div>
         )}
