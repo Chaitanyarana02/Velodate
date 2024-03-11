@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const SideNavBar = ({ isOpen, isSibeBarColse }) => {
+const SideNavBar = ({ isOpen, setIsOpen }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const [colorChnageDashboard, setColorChnageDashboard] = useState(false);
@@ -18,10 +18,11 @@ const SideNavBar = ({ isOpen, isSibeBarColse }) => {
 
   // console.log(isSibeBarColse);
 
-  const handleFocus = (itemName, event) => {
+  const handleFocus = (itemName, e) => {
     setFocusedItem(itemName);
-    isSibeBarColse(false);
-    event.preventDefault();
+    if (window.innerWidth <= 768 && setIsOpen && e.target.tagName === "A") {
+      setIsOpen(false);
+    }
   };
 
   // update the focus sate based on the clik user
@@ -46,11 +47,17 @@ const SideNavBar = ({ isOpen, isSibeBarColse }) => {
     fetchDataBasedOnLocation();
   }, [location]);
 
+  useEffect(() => {
+    if (isOpen && focusedItem !== null && window.innerWidth <= 768) {
+      setIsOpen(true);
+    }
+  }, [isOpen, focusedItem, setIsOpen]);
+
   return (
     <>
       <div
         className={`bg-[#3D3B35] text-white w-[72px] flex-1 md:flex flex-col items-center gap-[32px] ${
-          isOpen || isHovered ? "flex h-screen w-[207px]" : "hidden"
+          isOpen || isHovered ? "flex h-screen w-[12.5em]" : "hidden"
         }`}
         // ${isHovered && "flex h-screen w-[206px]"}
         onMouseEnter={() => setIsHovered(true)}
@@ -361,7 +368,7 @@ const SideNavBar = ({ isOpen, isSibeBarColse }) => {
 
 SideNavBar.propTypes = {
   isOpen: PropTypes.bool,
-  isSibeBarColse: PropTypes.bool,
+  setIsOpen: PropTypes.func,
 };
 
 export default SideNavBar;

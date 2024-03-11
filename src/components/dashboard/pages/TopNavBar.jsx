@@ -42,7 +42,6 @@ const TopNavBar = () => {
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
-
     setIsIconCross(!isIconCross);
   };
 
@@ -300,7 +299,7 @@ const TopNavBar = () => {
         {/* Sidebar */}
         {isSidebarOpen && (
           <div className="fixed right-0 top-0 opacity-100 z-50 min-h-screen flex-1">
-            <SideNavBar isOpen={isSidebarOpen} isSibeBarColse={toggleSidebar} />
+            <SideNavBar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
           </div>
         )}
       </div>
