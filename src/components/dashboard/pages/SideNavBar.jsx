@@ -57,7 +57,7 @@ const SideNavBar = ({ isOpen, setIsOpen }) => {
     <>
       <div
         className={`bg-[#3D3B35] text-white w-[72px] flex-1 md:flex flex-col items-center gap-[32px] ${
-          isOpen || isHovered ? "flex h-screen w-[12.5em]" : "hidden"
+          isOpen || isHovered ? "flex h-screen w-[12.4em]" : "hidden"
         }`}
         // ${isHovered && "flex h-screen w-[206px]"}
         onMouseEnter={() => setIsHovered(true)}
