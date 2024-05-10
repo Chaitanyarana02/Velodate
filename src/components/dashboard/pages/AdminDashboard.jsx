@@ -8,46 +8,88 @@ const AdminDashboard = () => {
   const [sessionCount, setSessionCount] = useState(0);
   const [matchRatio, setMatchRatio] = useState(0);
 
+  // useEffect(() => {
+  //   const animateNumbers = () => {
+  //     const finalValues = {
+  //       newUserCount: 400.00,
+  //       activeUserCount: 800.00,
+  //       sessionCount: 800.00,
+  //       matchRatio: 60.00,
+  //     };
+
+  //     const animationDuration = 800;
+  //     const animationStep = 20;
+
+  //     const animateValue = (currentValue, finalValue, setter) => {
+  //       const difference = finalValue - currentValue;
+  //       const step = difference / (animationDuration / animationStep);
+  //       let current = currentValue;
+  //       const interval = setInterval(() => {
+  //         current += step;
+  //         if (
+  //           (step > 0 && current >= finalValue) ||
+  //           (step < 0 && current <= finalValue)
+  //         ) {
+  //           clearInterval(interval);
+  //           current = finalValue;
+  //         }
+  //         // Limit the number of decimal places to 2
+  //         const roundedValue = parseFloat(current.toFixed(2));
+  //         setter(roundedValue);
+  //       }, animationStep);
+  //     };
+
+  //     animateValue(0, finalValues.newUserCount, setNewUserCount);
+  //     animateValue(0, finalValues.activeUserCount, setActiveUserCount);
+  //     animateValue(0, finalValues.sessionCount, setSessionCount);
+  //     animateValue(0, finalValues.matchRatio, setMatchRatio);
+  //   };
+
+  //   animateNumbers();
+  // }, []);
   useEffect(() => {
-    const animateNumbers = () => {
-      const finalValues = {
-        newUserCount: 400,
-        activeUserCount: 800,
-        sessionCount: 800,
-        matchRatio: 60,
-      };
+    const intervals = [];
 
-      const animationDuration = 800;
-      const animationStep = 20;
+    const animateValue = (currentValue, finalValue, setter) => {
+      const animationDuration = 800; // Total duration of animation
+      const animationStep = 20; // Time between updates in ms
+      const difference = finalValue - currentValue;
+      const step = difference / (animationDuration / animationStep);
 
-      const animateValue = (currentValue, finalValue, setter) => {
-        const difference = finalValue - currentValue;
-        const step = difference / (animationDuration / animationStep);
-        let current = currentValue;
-        const interval = setInterval(() => {
-          current += step;
-          if (
-            (step > 0 && current >= finalValue) ||
-            (step < 0 && current <= finalValue)
-          ) {
-            clearInterval(interval);
-            current = finalValue;
-          }
-          // Limit the number of decimal places to 2
-          const roundedValue = parseFloat(current.toFixed(2));
-          setter(roundedValue);
-        }, animationStep);
-      };
+      let current = currentValue;
 
-      animateValue(0, finalValues.newUserCount, setNewUserCount);
-      animateValue(0, finalValues.activeUserCount, setActiveUserCount);
-      animateValue(0, finalValues.sessionCount, setSessionCount);
-      animateValue(0, finalValues.matchRatio, setMatchRatio);
+      const interval = setInterval(() => {
+        current += step;
+
+        if ((step > 0 && current >= finalValue) || (step < 0 && current <= finalValue)) {
+          clearInterval(interval);
+          current = finalValue;
+        }
+
+        const roundedValue = parseFloat(current.toFixed(2));
+        setter(roundedValue);
+      }, animationStep);
+
+      intervals.push(interval);
     };
 
-    animateNumbers();
-  }, []);
+    const finalValues = {
+      newUserCount: 400.0,
+      activeUserCount: 800.0,
+      sessionCount: 800.0,
+      matchRatio: 60.0,
+    };
 
+    animateValue(0, finalValues.newUserCount, setNewUserCount);
+    animateValue(0, finalValues.activeUserCount, setActiveUserCount);
+    animateValue(0, finalValues.sessionCount, setSessionCount);
+    animateValue(0, finalValues.matchRatio, setMatchRatio);
+
+    // Cleanup function to clear intervals when the component unmounts or updates
+    return () => {
+      intervals.forEach(clearInterval);
+    };
+  }, []);
   return (
     <>
       <div className="flex flex-col lg:flex-row gap-9 my-5 px-12 justify-evenly items-center text-[#F6F6F6] w-full max-[363px]:px-8">

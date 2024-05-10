@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import userData from "../../../../userData.json";
 import { useNavigate } from "react-router-dom";
 import { IoTriangleSharp } from "react-icons/io5";
+import axios from "../../../axios";
 
 const Users = () => {
+
   // sort dropdown
   const [isUserSortOpen, setIsUserSortOpen] = useState(false);
   const [isUserFilterOpen, setIsUserFilterOpen] = useState(false);
@@ -11,10 +13,32 @@ const Users = () => {
   const [femaleChecked, setFemaleChecked] = useState(false);
   const [activeChecked, setActiveChecked] = useState(false);
   const [inactiveChecked, setInactiveChecked] = useState(false);
-
+  const [getUserData , setGetUserData] = useState([]);
   const navigate = useNavigate();
 
   const dropdownRef = useRef(null);
+
+
+  axios.post('admin/login' , {
+    username : 'test@gmail.com',
+     password : 'Test@123'
+  }).then((res)=>{
+      
+  }).then(()=>{
+
+  }).catch(()=>{
+
+  });
+
+
+
+
+
+
+
+
+
+
 
   const toggleUserFilter = () => {
     setIsUserFilterOpen(!isUserFilterOpen);
@@ -346,7 +370,7 @@ const Users = () => {
             onClick={() => handlePageChange(1)}
             className={`px-3 py-1 rounded-md ${
               currentPage === 1
-                ? "bg-[#3D3B35] border-b border-[#D8A409] text-[#D8A409]"
+                ? "bg-[#3D3B35] border-b-[3px] border-[#D8A409] text-[#D8A409]"
                 : "bg-black"
             } text-white text-sm mr-2 focus:outline-none`}
           >
@@ -364,7 +388,7 @@ const Users = () => {
           {currentPage > 1 && currentPage < totalPages && (
             <button
               onClick={() => handlePageChange(currentPage)}
-              className={`px-3 py-1 rounded-md bg-[#3D3B35] border-b border-[#D8A409] text-[#D8A409] text-sm mr-2 focus:outline-none`}
+              className={`px-3 py-1 rounded-md bg-[#3D3B35] border-b-[3px] border-[#D8A409] text-[#D8A409] text-sm mr-2 focus:outline-none`}
             >
               {currentPage}
             </button>
@@ -386,7 +410,7 @@ const Users = () => {
               onClick={() => handlePageChange(totalPages)}
               className={`px-3 py-1 rounded-md ${
                 currentPage === totalPages
-                  ? "bg-[#3D3B35] border-b border-[#D8A409] text-[#D8A409]"
+                  ? "bg-[#3D3B35] border-b-[3px] border-[#D8A409] text-[#D8A409]"
                   : "bg-black"
               } text-white text-sm mr-2 focus:outline-none`}
             >

@@ -337,7 +337,7 @@ const Mail = () => {
             onClick={() => handlePageChange(1)}
             className={`px-3 py-1 rounded-md ${
               currentPage === 1
-                ? "bg-[#3D3B35] border-b border-[#D8A409] text-[#D8A409]"
+                ? "bg-[#3D3B35] border-b-[3px] border-[#D8A409] text-[#D8A409]"
                 : "bg-black"
             } text-white text-sm mr-2 focus:outline-none`}
           >
@@ -355,7 +355,7 @@ const Mail = () => {
           {currentPage > 1 && currentPage < totalPages && (
             <button
               onClick={() => handlePageChange(currentPage)}
-              className={`px-3 py-1 rounded-md bg-[#3D3B35] border-b border-[#D8A409] text-[#D8A409] text-sm mr-2 focus:outline-none`}
+              className={`px-3 py-1 rounded-md bg-[#3D3B35] border-b-[3px] border-[#D8A409] text-[#D8A409] text-sm mr-2 focus:outline-none`}
             >
               {currentPage}
             </button>
@@ -377,7 +377,7 @@ const Mail = () => {
               onClick={() => handlePageChange(totalPages)}
               className={`px-3 py-1 rounded-md ${
                 currentPage === totalPages
-                  ? "bg-[#3D3B35] border-b border-[#D8A409] text-[#D8A409]"
+                  ? "bg-[#3D3B35] border-b-[3px] border-[#D8A409] text-[#D8A409]"
                   : "bg-black"
               } text-white text-sm mr-2 focus:outline-none`}
             >
@@ -387,7 +387,7 @@ const Mail = () => {
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="px-3 py-1 rounded-lg text-white text-2xl mr-2 focus:outline-none"
+            className="px-3 py-1 rounded-lg border-b-[3px] text-white text-2xl mr-2 focus:outline-none"
           >
             <img
               src="/usersAssets/paginationGreaterThan.svg"

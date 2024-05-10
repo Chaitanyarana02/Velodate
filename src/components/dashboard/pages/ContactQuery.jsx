@@ -339,7 +339,7 @@ const ContactQuery = () => {
             onClick={() => handlePageChange(1)}
             className={`px-3 py-1 rounded-md ${
               currentPage === 1
-                ? "bg-[#3D3B35] border-b border-[#D8A409] text-[#D8A409]"
+                ? "bg-[#3D3B35] border-b-[3px] border-[#D8A409] text-[#D8A409]"
                 : "bg-black"
             } text-white text-sm mr-2 focus:outline-none`}
           >
@@ -357,7 +357,7 @@ const ContactQuery = () => {
           {currentPage > 1 && currentPage < totalPages && (
             <button
               onClick={() => handlePageChange(currentPage)}
-              className={`px-3 py-1 rounded-md bg-[#3D3B35] border-b border-[#D8A409] text-[#D8A409] text-sm mr-2 focus:outline-none`}
+              className={`px-3 py-1 rounded-md bg-[#3D3B35] border-b-[3px] border-[#D8A409] text-[#D8A409] text-sm mr-2 focus:outline-none`}
             >
               {currentPage}
             </button>
@@ -379,7 +379,7 @@ const ContactQuery = () => {
               onClick={() => handlePageChange(totalPages)}
               className={`px-3 py-1 rounded-md ${
                 currentPage === totalPages
-                  ? "bg-[#3D3B35] border-b border-[#D8A409] text-[#D8A409]"
+                  ? "bg-[#3D3B35] border-b-[3px] border-[#D8A409] text-[#D8A409]"
                   : "bg-black"
               } text-white text-sm mr-2 focus:outline-none`}
             >

@@ -112,7 +112,7 @@ const TopNavBar = () => {
       >
         {/* Left side */}
         <div>
-          <span className="text-lg font-bold">{pageName}</span>
+          <span className="text-lg font-[500]">{pageName}</span>
         </div>
 
         {/* Right side */}
@@ -121,8 +121,8 @@ const TopNavBar = () => {
           <div className="relative hidden md:block">
             <input
               type="text"
-              placeholder="Search"
-              className="bg-[#3D3B35] px-4 py-1 rounded-3xl text-white pl-4 outline-none focus:ring-1 focus:ring-[#D8A409] focus:border focus:border-[#D8A409] focus:outline-none"
+              placeholder="Search here..."
+              className="bg-[#3D3B35] px-[100px] py-[6px] rounded-3xl text-white pl-4 text-[14px] outline-none focus:ring-1 focus:ring-[#D8A409] focus:border focus:border-[#D8A409] focus:outline-none"
             />
             <img
               src="/sidTopNavAssets/search-icon.svg"
@@ -144,7 +144,7 @@ const TopNavBar = () => {
             />
 
             {/* Username */}
-            <span className="text-sm font-semibold">Admin</span>
+            <span className="text-sm font-[400]">Admin</span>
 
             {/* Sort dropdown */}
             {isProfile && (
