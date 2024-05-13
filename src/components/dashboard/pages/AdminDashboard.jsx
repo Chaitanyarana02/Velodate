@@ -47,6 +47,7 @@ const AdminDashboard = () => {
 
   //   animateNumbers();
   // }, []);
+
   useEffect(() => {
     const intervals = [];
 
@@ -61,7 +62,10 @@ const AdminDashboard = () => {
       const interval = setInterval(() => {
         current += step;
 
-        if ((step > 0 && current >= finalValue) || (step < 0 && current <= finalValue)) {
+        if (
+          (step > 0 && current >= finalValue) ||
+          (step < 0 && current <= finalValue)
+        ) {
           clearInterval(interval);
           current = finalValue;
         }
@@ -90,6 +94,7 @@ const AdminDashboard = () => {
       intervals.forEach(clearInterval);
     };
   }, []);
+
   return (
     <>
       <div className="flex flex-col lg:flex-row gap-9 my-5 px-12 justify-evenly items-center text-[#F6F6F6] w-full max-[363px]:px-8">

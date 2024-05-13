@@ -1,17 +1,54 @@
+import { useState } from "react";
+import axios from "../../axios";
 import PropTypes from "prop-types";
+import Loading from "react-fullscreen-loading";
 
 const SendNotifications = ({
   isOpenSendNotification,
   closeModalSendNotification,
+  isSendNotificationData,
 }) => {
+  const [screenLoading, setScreenLoading] = useState(false);
+
   const handleCloseModal = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     closeModalSendNotification();
+  };
+
+  const handleSendNotifi = async () => {
+    handleCloseModal();
+    // console.log(isSendNotificationData.to);
+    try {
+      setScreenLoading(true);
+      const formData = {
+        to: isSendNotificationData.to,
+        title: isSendNotificationData.title,
+        message: isSendNotificationData.message,
+      };
+
+      const response = await axios.get(
+        "admin/users/send-push-notification",
+        formData
+      );
+
+      setScreenLoading(false);
+      console.log(response);
+    } catch (error) {
+      console.error("Error while sending notification:", error);
+      setScreenLoading(false);
+    }
   };
 
   return (
     <>
+      {/* Loading indicator */}
+      {screenLoading && (
+        <Loading loading background="#49504c85" loaderColor="#ffffff40" />
+      )}
+
       {isOpenSendNotification && (
         <div className="fixed inset-0 flex items-center justify-center z-50 w-full">
           <div
@@ -33,6 +70,7 @@ const SendNotifications = ({
                 is non-revisable.
               </p>
             </div>
+
             <div className="w-full flex gap-4">
               <button
                 className="border-2 border-[#FFCF40] bg-[#D19D00] rounded-full text-[#000000] text-[16px] font-medium w-1/2 p-1"
@@ -42,7 +80,7 @@ const SendNotifications = ({
               </button>
               <button
                 className="border-2 border-[#FFCF40] bg-[#FFFFFF33] text-[#FFFFFF] rounded-full text-[16px] font-medium w-1/2 p-1"
-                onClick={handleCloseModal}
+                onClick={handleSendNotifi}
               >
                 Yes
               </button>
@@ -57,6 +95,7 @@ const SendNotifications = ({
 SendNotifications.propTypes = {
   isOpenSendNotification: PropTypes.bool.isRequired,
   closeModalSendNotification: PropTypes.func.isRequired,
+  isSendNotificationData: PropTypes.object.isRequired,
 };
 
 export default SendNotifications;

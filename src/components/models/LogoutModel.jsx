@@ -1,12 +1,23 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const LogoutModel = ({ isOpenLogout, closeLogoutModal }) => {
   // console.log(isOpenLogout, closeLogoutModal);
+  const navigate = useNavigate();
 
   const handleCloseModal = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     closeLogoutModal();
+  };
+
+  const handleLogout = () => {
+    handleCloseModal();
+    localStorage.removeItem("token");
+
+    navigate("/sign-in");
   };
 
   return (
@@ -31,6 +42,7 @@ const LogoutModel = ({ isOpenLogout, closeLogoutModal }) => {
                 Are you sure you want to Log out.
               </p>
             </div>
+
             <div className="w-full flex gap-4">
               <button
                 className="border-2 border-[#FFCF40] bg-[#D19D00] rounded-full text-[#000000] text-[16px] font-medium w-1/2 p-1"
@@ -38,9 +50,10 @@ const LogoutModel = ({ isOpenLogout, closeLogoutModal }) => {
               >
                 Cancle
               </button>
+
               <button
                 className="border-2 border-[#FFCF40] bg-[#FFFFFF33] text-[#FFFFFF] rounded-full text-[16px] font-medium w-1/2 p-1"
-                onClick={handleCloseModal}
+                onClick={handleLogout}
               >
                 Yes
               </button>

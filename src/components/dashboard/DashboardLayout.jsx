@@ -1,8 +1,23 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import SideNavBar from "./pages/SideNavBar";
 import TopNavBar from "./pages/TopNavBar";
+import { useEffect } from "react";
 
 const DashboardLayout = () => {
+  const privateRoutes = ["/"];
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isPrivateRoute = privateRoutes.some((route) =>
+    location.pathname.startsWith(route)
+  );
+
+  useEffect(() => {
+    if (!localStorage.getItem("token") && isPrivateRoute) {
+      navigate("/sign-in");
+    }
+  }, [isPrivateRoute, navigate]);
+
   return (
     <>
       <div className="flex w-full min-h-screen bg-black relative">

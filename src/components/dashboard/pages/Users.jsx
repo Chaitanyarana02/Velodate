@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import userData from "../../../../userData.json";
 import { useNavigate } from "react-router-dom";
 import { IoTriangleSharp } from "react-icons/io5";
 import axios from "../../../axios";
+import Loading from "react-fullscreen-loading";
 
 const Users = () => {
-
   // sort dropdown
   const [isUserSortOpen, setIsUserSortOpen] = useState(false);
   const [isUserFilterOpen, setIsUserFilterOpen] = useState(false);
@@ -13,32 +12,11 @@ const Users = () => {
   const [femaleChecked, setFemaleChecked] = useState(false);
   const [activeChecked, setActiveChecked] = useState(false);
   const [inactiveChecked, setInactiveChecked] = useState(false);
-  const [getUserData , setGetUserData] = useState([]);
+  const [getUserData, setGetUserData] = useState([]);
+  const [screenLoading, setScreenLoading] = useState(true);
   const navigate = useNavigate();
 
   const dropdownRef = useRef(null);
-
-
-  axios.post('admin/login' , {
-    username : 'test@gmail.com',
-     password : 'Test@123'
-  }).then((res)=>{
-      
-  }).then(()=>{
-
-  }).catch(()=>{
-
-  });
-
-
-
-
-
-
-
-
-
-
 
   const toggleUserFilter = () => {
     setIsUserFilterOpen(!isUserFilterOpen);
@@ -88,24 +66,61 @@ const Users = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleFetchUser = async () => {
+      try {
+        setScreenLoading(true);
+        const response = await axios.get("admin/users");
+        // console.log(response.data);
+
+        setGetUserData(response.data.data);
+        setScreenLoading(false);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setScreenLoading(false);
+      }
+    };
+
+    handleFetchUser();
+  }, []);
+
   const rowsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
   // Calculate total number of pages
-  const totalPages = Math.ceil(userData.length / rowsPerPage);
+  const totalPages = Math.ceil(getUserData.length / rowsPerPage);
 
   // Calculate index range for current page
   const startIndex = (currentPage - 1) * rowsPerPage;
-  const endIndex = Math.min(startIndex + rowsPerPage, userData.length);
+  const endIndex = Math.min(startIndex + rowsPerPage, getUserData.length);
 
   // Function to handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  const handleUserClick = (user) => {
+  const handleUserClick = async (user) => {
     // console.log("send the correct data from the users", user);
-    navigate("/user-profile", { state: { userData: user } });
+
+    try {
+      setScreenLoading(true);
+      const response = await axios.get(`admin/users/${user.id}`);
+
+      // console.log(response.data.status);
+
+      const singleUsere = response.data.data;
+
+      if (response.data.status === true) {
+        navigate("/user-profile", {
+          state: { singleUserDetails: singleUsere },
+        });
+
+        setScreenLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setScreenLoading(false);
+    }
     // navigate("/user-profile");
   };
 
@@ -282,10 +297,15 @@ const Users = () => {
             </div>
           </div>
 
+          {/* Loading indicator */}
+          {screenLoading && (
+            <Loading loading background="#49504c85" loaderColor="#ffffff40" />
+          )}
+
           {/* Table Body */}
           <div className="w-full">
             {/* show the user data and display rows using map */}
-            {userData.slice(startIndex, endIndex).map((user, index) => (
+            {getUserData.slice(startIndex, endIndex).map((user, index) => (
               <div
                 key={startIndex + index}
                 className="w-full bg-[#3D3B35] rounded-2xl grid grid-cols-4 md:grid-cols-6 gap-4 p-[0.4rem] my-[0.2rem] hover:border hover:border-[#D8A409] cursor-pointer items-center"
@@ -307,14 +327,17 @@ const Users = () => {
                     {user.name}
                   </label>
                 </div>
+
                 {/* gender */}
                 <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
                   {user.gender}
                 </div>
+
                 {/* date of birth */}
                 <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
-                  {user.dob}
+                  {user.dateOfBirth}
                 </div>
+
                 {/* email */}
                 <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
                   {/* Render truncated email with ellipsis */}
@@ -322,24 +345,32 @@ const Users = () => {
                     className="overflow-x-auto"
                     style={{ cursor: "pointer" }}
                   >
-                    {user.email}
+                    {user.email || "admin@gmail.com"}
                   </div>
                 </div>
+
                 {/* phone number */}
                 <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
-                  {user.phone}
+                  {user.mobile || "+91 70xxxxxxxx"}
                 </div>
+
                 <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
-                  {user.status.toLowerCase() === "active" ? (
-                    <span className="bg-[#25CD7C33] rounded-full text-center block p-1 border-2 border-[#25CD7C33]">
-                      {user.status}
-                    </span>
-                  ) : (
-                    <span className="bg-[#CD256133] rounded-full text-center block p-1 border-2 border-[#CD2561]">
-                      {user.status}
-                    </span>
-                  )}
+                  <span className="bg-[#25CD7C33] rounded-full text-center block p-1 border-2 border-[#25CD7C33]">
+                    Active
+                  </span>
                 </div>
+
+                {/* <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
+                      {user.status.toLowerCase() === "active" ? (
+                        <span className="bg-[#25CD7C33] rounded-full text-center block p-1 border-2 border-[#25CD7C33]">
+                          {user.status}
+                        </span>
+                      ) : (
+                        <span className="bg-[#CD256133] rounded-full text-center block p-1 border-2 border-[#CD2561]">
+                          {user.status}
+                        </span>
+                      )}
+                    </div> */}
               </div>
             ))}
           </div>

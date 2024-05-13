@@ -1,14 +1,114 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import axios from "../../../axios";
+
 const Sign_In = () => {
   const [signInShowPassword, setSignInShowPassword] = useState(false);
   const [signInInputType, setSignInInputType] = useState("password");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    number: "",
+    password: "",
+  });
 
   const toggleSignInPasswordVisibility = () => {
     setSignInShowPassword(!signInShowPassword);
     setSignInInputType(signInShowPassword ? "password" : "text");
+  };
+
+  const handleEmailNumber = (event) => {
+    const { value } = event.target;
+    const isNumber = /^\d{10}$/.test(value);
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+    if (isNumber) {
+      setFormData({
+        ...formData,
+        number: value,
+        email: "",
+      });
+    } else if (isEmail) {
+      setFormData({
+        ...formData,
+        email: value,
+        number: "",
+      });
+    } else {
+      setEmailError(
+        "Invalid input. Please enter a valid email or a 10-digit number."
+      );
+      setTimeout(() => {
+        setEmailError("");
+      }, 2000);
+    }
+  };
+
+  const handleFormData = (event) => {
+    const { name, value } = event.target;
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleLogin = async () => {
+    if (!formData.email && !formData.number) {
+      setEmailError("Please enter your email or contact number.");
+      setTimeout(() => {
+        setEmailError("");
+      }, 2000);
+      return;
+    }
+
+    if (!formData.password) {
+      setPasswordError("Please enter correct password.");
+      setTimeout(() => {
+        setPasswordError("");
+      }, 2000);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const requestData = {
+        emailOrMobile: formData.email || formData.number,
+        password: formData.password,
+      };
+
+      const response = await axios.post("admin/login", requestData);
+      // console.log("response= ", response.data);
+
+      if (response.data.status === true) {
+        localStorage.setItem("token", response.data.data.accessToken);
+
+        navigate("/");
+
+        setFormData({
+          email: "",
+          number: "",
+          password: "",
+        });
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.log("error = ", error);
+
+      setPasswordError(error.response.data.error.message);
+      setTimeout(() => {
+        setPasswordError("");
+      }, 3000);
+
+      setLoading(false);
+    }
   };
 
   return (
@@ -30,16 +130,19 @@ const Sign_In = () => {
           </p>
         </div>
 
-        {/* email */}
+        {/* email && number */}
         <div className="flex flex-col gap-2 w-full mb-6">
           <label htmlFor="" className="text-[#949494]">
             Email/ Contact Number
           </label>
           <input
-            type="email"
+            type="text"
+            name="email"
             placeholder="Enter email or contact number"
             className="bg-black placeholder-text-[#949494] text-[#949494] border border-[#F6F6F6] outline-none p-2 rounded-md w-10/12 md:w-3/4 lg:w-1/2"
+            onChange={handleEmailNumber}
           />
+          {emailError && <p className="text-red-500">{emailError}</p>}
         </div>
 
         {/* password */}
@@ -50,10 +153,11 @@ const Sign_In = () => {
           <div className="relative w-10/12 md:w-3/4 lg:w-1/2">
             <input
               type={signInInputType}
-              name="newPassword"
+              name="password"
               id="userNewPassword"
               placeholder="Enter password"
               className="border border-[#C5C5C5] outline-none rounded-md bg-black p-[12px] h-[40px] placeholder-text-[#949494] text-[#949494] w-full"
+              onChange={handleFormData}
             />
             <img
               src={
@@ -66,6 +170,7 @@ const Sign_In = () => {
               onClick={toggleSignInPasswordVisibility}
             />
           </div>
+          {passwordError && <p className="text-red-500">{passwordError}</p>}
         </div>
 
         {/* reminder and forget button */}
@@ -98,10 +203,19 @@ const Sign_In = () => {
 
         <div className="w-full mt-4">
           <button
-            className="bg-[#F3E4B5] text-[16px] text-[#000000] rounded-full p-2 w-10/12 md:w-3/4 lg:w-1/2"
-            onClick={() => navigate("/")}
+            className={`bg-[#F3E4B5] text-[16px] text-[#000000] rounded-full p-2 w-10/12 md:w-3/4 lg:w-1/2 ${
+              loading && "flex justify-center items-center gap-2"
+            }`}
+            onClick={handleLogin}
           >
             Sign in
+            {loading && (
+              <img
+                src="/authAssets/spinner.gif"
+                alt="spinner"
+                className="mix-blend-color-burn"
+              />
+            )}
           </button>
         </div>
       </div>

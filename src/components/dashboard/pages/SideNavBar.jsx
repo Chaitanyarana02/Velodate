@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const SideNavBar = ({ isOpen, setIsOpen }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -15,6 +15,7 @@ const SideNavBar = ({ isOpen, setIsOpen }) => {
 
   const [focusedItem, setFocusedItem] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   // console.log(isSibeBarColse);
 
@@ -52,6 +53,12 @@ const SideNavBar = ({ isOpen, setIsOpen }) => {
       setIsOpen(true);
     }
   }, [isOpen, focusedItem, setIsOpen]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+
+    navigate("/sign-in");
+  };
 
   return (
     <>
@@ -334,7 +341,10 @@ const SideNavBar = ({ isOpen, setIsOpen }) => {
                   ? "w-full flex items-center gap-2 justify-start px-4 py-2"
                   : "block p-2"
               }`}
-              onClick={(e) => handleFocus("logOut", e)}
+              onClick={(e) => {
+                handleFocus("logOut", e);
+                handleLogout();
+              }}
             >
               <img
                 src={

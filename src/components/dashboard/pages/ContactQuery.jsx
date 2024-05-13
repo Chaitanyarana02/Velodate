@@ -1,8 +1,10 @@
 import { IoIosArrowDown } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
-import reprotData from "../../../../userReportData.json";
+// import reprotData from "../../../../userReportData.json";
 import { useNavigate } from "react-router-dom";
 import { IoTriangleSharp } from "react-icons/io5";
+import axios from "../../../axios";
+import Loading from "react-fullscreen-loading";
 
 const ContactQuery = () => {
   // sort dropdown
@@ -12,10 +14,9 @@ const ContactQuery = () => {
   const [femaleChecked, setFemaleChecked] = useState(false);
   const [activeChecked, setActiveChecked] = useState(false);
   const [inactiveChecked, setInactiveChecked] = useState(false);
+  const [contactQueryData, setContactQueryData] = useState([]);
+  const [screenLoading, setScreenLoading] = useState(true);
 
-
-
-  
   const navigate = useNavigate();
 
   const dropdownRef = useRef(null);
@@ -70,25 +71,90 @@ const ContactQuery = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleFetchUser = async () => {
+      try {
+        setScreenLoading(true);
+        const response = await axios.get("admin/users/contact-us");
+        // console.log(response.data);
+
+        setContactQueryData(response.data.data);
+        setScreenLoading(false);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setScreenLoading(false);
+      }
+    };
+
+    handleFetchUser();
+  }, []);
+
   const rowsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
   // Calculate total number of pages
-  const totalPages = Math.ceil(reprotData.length / rowsPerPage);
+  const totalPages = Math.ceil(contactQueryData.length / rowsPerPage);
 
   // Calculate index range for current page
   const startIndex = (currentPage - 1) * rowsPerPage;
-  const endIndex = Math.min(startIndex + rowsPerPage, reprotData.length);
+  const endIndex = Math.min(startIndex + rowsPerPage, contactQueryData.length);
 
   // Function to handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  const handleUserClick = (query) => {
+  const handleUserClick = async (query) => {
     // console.log("send the correct data from the users", query);
-    navigate("/contact-query-detailed", { state: { queryData: query } });
+    try {
+      setScreenLoading(true);
+      const response = await axios.get(`admin/users/contact-us/${query.id}`);
+
+      // console.log(response.data);
+
+      const singleQuery = response.data.data;
+
+      if (response.data.status === true) {
+        navigate("/contact-query-detailed", {
+          state: { singleQueryData: singleQuery },
+        });
+
+        setScreenLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setScreenLoading(false);
+    }
     // navigate("/user-profile");
+  };
+
+  // Format createdAt to human-readable format
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+
+    const diffInMilliseconds = now - date;
+
+    const seconds = Math.floor(diffInMilliseconds / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(months / 12);
+
+    if (seconds < 60) {
+      return `${seconds} second${seconds !== 1 ? "s" : ""} ago`;
+    } else if (minutes < 60) {
+      return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+    } else if (hours < 24) {
+      return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+    } else if (days < 30) {
+      return `${days} day${days !== 1 ? "s" : ""} ago`;
+    } else if (months < 12) {
+      return `${months} month${months !== 1 ? "s" : ""} ago`;
+    } else {
+      return `${years} year${years !== 1 ? "s" : ""} ago`;
+    }
   };
 
   return (
@@ -259,58 +325,66 @@ const ContactQuery = () => {
             </div>
           </div>
 
+          {/* Loading indicator */}
+          {screenLoading && (
+            <Loading loading background="#49504c85" loaderColor="#ffffff40" />
+          )}
+
           {/* Table Body */}
           <div className="w-full">
             {/* show the user data and display rows using map */}
-            {reprotData.slice(startIndex, endIndex).map((query, index) => (
-              <div
-                key={startIndex + index}
-                className="w-full bg-[#3D3B35] rounded-2xl grid grid-cols-3 md:grid-cols-4 gap-4 p-[0.4rem] my-[0.2rem] hover:border hover:border-[#D8A409] cursor-pointer items-center"
-                onClick={() => handleUserClick(query)}
-              >
-                {/* checkbox */}
-                <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 max-[340px]:flex-row-reverse max-[340px]:justify-between max-[340px]:w-full flex items-center ">
-                  <input
-                    type="checkbox"
-                    name="checkbox"
-                    id={`checkbox-${startIndex + index}`}
-                    className="w-4 h-4 mr-8 max-[340px]:mr-[-2.6rem]"
-                  />
-                  <label
-                    htmlFor={`checkbox-${startIndex + index}`}
-                    className="text-[#FFFFFF] text-[14px] hover:text-[#D8A409]"
-                    // onClick={() => navigate("/user-profile")}
-                  >
-                    {query.name}
-                  </label>
-                </div>
+            {contactQueryData
+              .slice(startIndex, endIndex)
+              .map((query, index) => (
+                <div
+                  key={startIndex + index}
+                  className="w-full bg-[#3D3B35] rounded-2xl grid grid-cols-3 md:grid-cols-4 gap-4 p-[0.4rem] my-[0.2rem] hover:border hover:border-[#D8A409] cursor-pointer items-center"
+                  onClick={() => handleUserClick(query)}
+                >
+                  {/* checkbox */}
+                  <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 max-[340px]:flex-row-reverse max-[340px]:justify-between max-[340px]:w-full flex items-center ">
+                    <input
+                      type="checkbox"
+                      name="checkbox"
+                      id={`checkbox-${startIndex + index}`}
+                      className="w-4 h-4 mr-8 max-[340px]:mr-[-2.6rem]"
+                    />
+                    <label
+                      htmlFor={`checkbox-${startIndex + index}`}
+                      className="text-[#FFFFFF] text-[14px] hover:text-[#D8A409]"
+                      // onClick={() => navigate("/user-profile")}
+                    >
+                      {query.name}
+                    </label>
+                  </div>
 
-                {/* Report Type */}
-                <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
-                  {query.report}
-                </div>
+                  {/* Report Type */}
+                  <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
+                    {/* {query.report} */}
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  </div>
 
-                {/* Date created */}
-                <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
-                  {query.date_created}
-                </div>
+                  {/* Date created */}
+                  <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
+                    {formatDate(query.createdAt)}
+                  </div>
 
-                {/* Status */}
-                <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px] w-3/4 max-[549px]:w-full">
-                  {query.status.toLowerCase() === "active" ? (
-                    <span className="flex justify-between items-center px-1 py-1 bg-[#CD256133] rounded-full text-center border-2 border-[#CD2561]">
-                      {query.status}
-                      <IoIosArrowDown className="mr-2" />
-                    </span>
-                  ) : (
-                    <span className="flex justify-between items-center px-1 py-1 bg-[#25CD7C33] rounded-full text-center border-2 border-[#25CD7C33]">
-                      {query.status}
-                      <IoIosArrowDown className="mr-2" />
-                    </span>
-                  )}
+                  {/* Status */}
+                  <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px] w-3/4 max-[549px]:w-full">
+                    {query.status.toLowerCase() === "ACTIVE" ? (
+                      <span className="flex justify-between items-center px-1 py-1 bg-[#CD256133] rounded-full text-center border-2 border-[#CD2561]">
+                        {query.status}
+                        <IoIosArrowDown className="mr-2" />
+                      </span>
+                    ) : (
+                      <span className="flex justify-between items-center px-1 py-1 bg-[#25CD7C33] rounded-full text-center border-2 border-[#25CD7C33]">
+                        {query.status}
+                        <IoIosArrowDown className="mr-2" />
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>
