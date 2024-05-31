@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import notificationData from "../../../../userNotifications.json";
+// import notificationData from "../../../../userNotifications.json";
 import { IoTriangleSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import axios from "../../../axios";
+import Loading from "react-fullscreen-loading";
 
 const Subscriptions = () => {
   // sort dropdown
@@ -11,6 +13,8 @@ const Subscriptions = () => {
   const [femaleChecked, setFemaleChecked] = useState(false);
   const [activeChecked, setActiveChecked] = useState(false);
   const [inactiveChecked, setInactiveChecked] = useState(false);
+  const [notificationData, setNotificationData] = useState([]);
+  const [screenLoading, setScreenLoading] = useState(true);
 
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -64,6 +68,24 @@ const Subscriptions = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleFetchUser = async () => {
+      try {
+        setScreenLoading(true);
+        const response = await axios.get("admin/users/push-notification");
+        // console.log(response.data.message);
+
+        setNotificationData(response.data.message);
+        setScreenLoading(false);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setScreenLoading(false);
+      }
+    };
+
+    handleFetchUser();
+  }, []);
+
   const rowsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -83,6 +105,13 @@ const Subscriptions = () => {
     // console.log("send the correct data from the users", notify);
     navigate("/push-notifications", { state: { notifyData: notify } });
     // navigate("/user-profile");
+  };
+
+  const formatDate = (date) => {
+    const parsedDate = new Date(date);
+    return parsedDate instanceof Date && !isNaN(parsedDate)
+      ? parsedDate.toISOString().split("T")[0]
+      : "Invalid Date";
   };
 
   return (
@@ -267,6 +296,11 @@ const Subscriptions = () => {
             </div>
           </div>
 
+          {/* Loading indicator */}
+          {screenLoading && (
+            <Loading loading background="#49504c85" loaderColor="#ffffff40" />
+          )}
+
           {/* Table Body */}
           <div className="w-full">
             {/* show the user data and display rows using map */}
@@ -291,20 +325,20 @@ const Subscriptions = () => {
                       className="text-[#FFFFFF] text-[14px] hover:text-[#D8A409]"
                       // onClick={() => navigate("/user-profile")}
                     >
-                      {notify.date}
+                      {formatDate(notify.createdAt)}
                     </label>
                   </div>
 
                   {/* notification subject */}
                   <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
-                    {notify.subject}
+                    {notify.title}
                   </div>
 
                   <div className="col-span-1"></div>
 
                   {/* notification user type */}
                   <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
-                    {notify.user_type}
+                    {notify.notificationType}
                   </div>
                 </div>
               ))}

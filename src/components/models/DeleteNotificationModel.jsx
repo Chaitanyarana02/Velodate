@@ -1,17 +1,62 @@
 import PropTypes from "prop-types";
+import axios from "../../axios";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loading from "react-fullscreen-loading";
+import { useNavigate } from "react-router-dom";
 
 const DeleteNotificationModel = ({
   isOpenDeleteNotification,
   closeModalDeleteNotification,
+  isDeleteNotification,
 }) => {
+  const [screenLoading, setScreenLoading] = useState(false);
+  const navigate = useNavigate();
+
   const handleCloseModal = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    // event.preventDefault();
+    // event.stopPropagation();
     closeModalDeleteNotification();
+  };
+
+  const handleDelete = async () => {
+    try {
+      handleCloseModal();
+      setScreenLoading(true);
+
+      // console.log(isDeleteNotification);
+
+      const response = await axios.delete(
+        `admin/users/push-notification/${isDeleteNotification.id}`
+      );
+
+      // console.log(response.data.status);
+      // setScreenLoading(false);
+
+      if (response.data.status === true) {
+        navigate("/notifications");
+      }
+    } catch (error) {
+      // console.error("Error while sending notification:", error);
+      toast.error(error.message);
+      setScreenLoading(false);
+    }
   };
 
   return (
     <>
+      <ToastContainer />
+
+      {/* Loading indicator */}
+      {screenLoading && (
+        <Loading loading background="#49504c85" loaderColor="#ffffff40" />
+      )}
+
       {isOpenDeleteNotification && (
         <div className="fixed inset-0 flex items-center justify-center z-50 w-full">
           <div
@@ -42,7 +87,7 @@ const DeleteNotificationModel = ({
               </button>
               <button
                 className="border-2 border-[#FFCF40] bg-[#FFFFFF33] text-[#FFFFFF] rounded-full text-[16px] font-medium w-1/2 p-1"
-                onClick={handleCloseModal}
+                onClick={handleDelete}
               >
                 Yes
               </button>
@@ -57,6 +102,7 @@ const DeleteNotificationModel = ({
 DeleteNotificationModel.propTypes = {
   isOpenDeleteNotification: PropTypes.bool.isRequired,
   closeModalDeleteNotification: PropTypes.func.isRequired,
+  isDeleteNotification: PropTypes.object.isRequired,
 };
 
 export default DeleteNotificationModel;

@@ -1,8 +1,38 @@
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import ResendMailNotificationModel from "../../models/ResendMailNotificationModel";
+import DeleteMailNotificationModel from "../../models/DeleteMailNotificationModel";
 
 const PushMail = () => {
   const location = useLocation();
-  const { notifyData } = location.state;
+  const { mailNotifyData } = location.state;
+
+  const [isModalOpenResend, setIsModalOpenResend] = useState(false);
+  const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
+
+  const openModalResend = () => {
+    setIsModalOpenResend(true);
+  };
+
+  const closeModalResend = () => {
+    setIsModalOpenResend(false);
+  };
+
+  const openModalDelete = () => {
+    setIsModalOpenDelete(true);
+  };
+
+  const closeModalDelete = () => {
+    setIsModalOpenDelete(false);
+  };
+  // console.log(mailNotifyData);
+
+  const formatDate = (date) => {
+    const parsedDate = new Date(date);
+    return parsedDate instanceof Date && !isNaN(parsedDate)
+      ? parsedDate.toISOString().split("T")[0]
+      : "Invalid Date";
+  };
 
   return (
     <>
@@ -16,14 +46,32 @@ const PushMail = () => {
 
             {/* Delete and resend button */}
             <div className="flex justify-end gap-8 w-full">
-              <button className="text-[#FFFFFF] hover:border hover:border-[#D19D00] text-[14px] p-2 rounded-full w-full md:w-[22%]">
+              <button
+                className="text-[#FFFFFF] hover:border hover:border-[#D19D00] text-[14px] p-2 rounded-full w-full md:w-[22%]"
+                onClick={openModalDelete}
+              >
                 Delete
               </button>
-              <button className="text-[#FFFFFF] hover:border hover:border-[#D19D00] text-[14px] p-2 rounded-full w-full md:w-[22%]">
+              <button
+                className="text-[#FFFFFF] hover:border hover:border-[#D19D00] text-[14px] p-2 rounded-full w-full md:w-[22%]"
+                onClick={openModalResend}
+              >
                 Resend
               </button>
             </div>
           </div>
+
+          <ResendMailNotificationModel
+            isOpenReSendMailNotification={isModalOpenResend}
+            closeModalReSendMailNotification={closeModalResend}
+            isReSendMailNotificationData={mailNotifyData}
+          />
+
+          <DeleteMailNotificationModel
+            isOpenDeleteNotification={isModalOpenDelete}
+            closeModalDeleteNotification={closeModalDelete}
+            isDeleteMailNotificationData={mailNotifyData}
+          />
 
           {/* confirm and re-enter password */}
           <div className="w-full flex flex-col gap-8 mt-4">
@@ -36,7 +84,7 @@ const PushMail = () => {
                     Date
                   </label>
                   <p className="font-normal text-[16px] w-1/2">
-                    {notifyData.date}
+                    {formatDate(mailNotifyData.createdAt)}
                   </p>
                 </div>
 
@@ -46,7 +94,7 @@ const PushMail = () => {
                     To
                   </label>
                   <p className="font-normal text-[16px] w-1/2">
-                    {notifyData.name}
+                    {mailNotifyData.sentTo}
                   </p>
                 </div>
 
@@ -56,7 +104,7 @@ const PushMail = () => {
                     Title
                   </label>
                   <p className="font-normal text-[16px] w-1/2">
-                    {notifyData.subject}
+                    {mailNotifyData.title}
                   </p>
                 </div>
 
@@ -65,8 +113,8 @@ const PushMail = () => {
                   <label htmlFor="name" className="w-32 text-[14px]">
                     Message
                   </label>
-                  <p className="font-normal text-[16px] w-full md:w-1/3 lg:w-2/5">
-                    {notifyData.message}
+                  <p className="font-normal text-[16px] w-1/2">
+                    {mailNotifyData.body}
                   </p>
                 </div>
 
@@ -77,7 +125,7 @@ const PushMail = () => {
                   </label>
                   <p className="font-normal text-[16px] w-1/2 flex gap-4">
                     <img src="/usersAssets/attachment.svg" alt="attachment" />
-                    {notifyData.subject}
+                    {mailNotifyData.attachment || "no image found"}
                   </p>
                 </div>
               </div>

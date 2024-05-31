@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import notificationData from "../../../../userNotifications.json";
+// import notificationData from "../../../../userNotifications.json";
 import { IoTriangleSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import Loading from "react-fullscreen-loading";
+import axios from "../../../axios";
 
 const Mail = () => {
   const [isReportSortOpen, setIsReportSortOpen] = useState(false);
@@ -10,6 +12,8 @@ const Mail = () => {
   const [femaleChecked, setFemaleChecked] = useState(false);
   const [activeChecked, setActiveChecked] = useState(false);
   const [inactiveChecked, setInactiveChecked] = useState(false);
+  const [mailNotificationData, setMailNotificationData] = useState([]);
+  const [screenLoading, setScreenLoading] = useState(true);
 
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -63,25 +67,53 @@ const Mail = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleFetchUser = async () => {
+      try {
+        setScreenLoading(true);
+        const response = await axios.get("admin/users/email-notification");
+        // console.log(response.data.message);
+
+        setMailNotificationData(response.data.message);
+        setScreenLoading(false);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setScreenLoading(false);
+      }
+    };
+
+    handleFetchUser();
+  }, []);
+
   const rowsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
   // Calculate total number of pages
-  const totalPages = Math.ceil(notificationData.length / rowsPerPage);
+  const totalPages = Math.ceil(mailNotificationData.length / rowsPerPage);
 
   // Calculate index range for current page
   const startIndex = (currentPage - 1) * rowsPerPage;
-  const endIndex = Math.min(startIndex + rowsPerPage, notificationData.length);
+  const endIndex = Math.min(
+    startIndex + rowsPerPage,
+    mailNotificationData.length
+  );
 
   // Function to handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  const handleUserClick = (notify) => {
-    // console.log("send the correct data from the users", notify);
-    navigate("/push-mail", { state: { notifyData: notify } });
+  const handleUserClick = (mailNotify) => {
+    // console.log("send the correct data from the users", mailNotify);
+    navigate("/push-mail", { state: { mailNotifyData: mailNotify } });
     // navigate("/user-profile");
+  };
+
+  const formatDate = (date) => {
+    const parsedDate = new Date(date);
+    return parsedDate instanceof Date && !isNaN(parsedDate)
+      ? parsedDate.toISOString().split("T")[0]
+      : "Invalid Date";
   };
 
   return (
@@ -268,16 +300,21 @@ const Mail = () => {
             </div>
           </div>
 
+          {/* Loading indicator */}
+          {screenLoading && (
+            <Loading loading background="#49504c85" loaderColor="#ffffff40" />
+          )}
+
           {/* Table Body */}
           <div className="w-full">
             {/* show the user data and display rows using map */}
-            {notificationData
+            {mailNotificationData
               .slice(startIndex, endIndex)
-              .map((notify, index) => (
+              .map((mailNotify, index) => (
                 <div
                   key={startIndex + index}
                   className="w-full bg-[#3D3B35] rounded-2xl grid grid-cols-4 md:grid-cols-4 gap-12 p-[0.4rem] my-[0.2rem] hover:border hover:border-[#D8A409] cursor-pointer items-center md:h-[3.2em] lg:h-[2.8em]"
-                  onClick={() => handleUserClick(notify)}
+                  onClick={() => handleUserClick(mailNotify)}
                 >
                   {/* checkbox */}
                   <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 max-[340px]:flex-row-reverse max-[340px]:justify-between max-[340px]:w-full flex items-center ">
@@ -292,20 +329,20 @@ const Mail = () => {
                       className="text-[#FFFFFF] text-[14px] hover:text-[#D8A409]"
                       // onClick={() => navigate("/user-profile")}
                     >
-                      {notify.date}
+                      {formatDate(mailNotify.createdAt)}
                     </label>
                   </div>
 
                   {/* notification subject */}
                   <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
-                    {notify.subject}
+                    {mailNotify.title}
                   </div>
 
                   <div className="col-span-1"></div>
 
                   {/* notification user type */}
                   <div className="col-span-1 max-[549px]:col-span-2 max-[340px]:col-span-3 text-[#FFFFFF] text-[14px]">
-                    {notify.user_type}
+                    {mailNotify.notificationType}
                   </div>
                 </div>
               ))}

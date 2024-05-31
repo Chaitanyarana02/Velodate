@@ -113,7 +113,7 @@ const Sign_In = () => {
 
   return (
     <div className="flex justify-center w-full">
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center my-10 mx-4 md:mx-20">
+      <div className="w-full md:w-1/2 flex flex-col justify-start items-center mt-20 mx-4 md:mx-20">
         <div className="w-full mb-8 md:text-start">
           <img
             src="/authAssets/velodate.svg"
@@ -124,7 +124,7 @@ const Sign_In = () => {
 
         <div className="md:text-start my-4 w-full">
           <h1 className="text-[#F6F6F6] text-3xl font-medium">Sign in</h1>
-          <p className="text-[#F6F6F6] text-[14px] font-normal">
+          <p className="text-[#F6F6F6] text-[14px] font-normal mt-2">
             Please provide required credentials to <br />
             access your account.
           </p>

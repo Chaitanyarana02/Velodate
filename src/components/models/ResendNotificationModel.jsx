@@ -5,11 +5,10 @@ import Loading from "react-fullscreen-loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SendNotifications = ({
-  isOpenSendNotification,
-  closeModalSendNotification,
-  isSendNotificationData,
-  // resetForm,
+const ResendNotificationModel = ({
+  isOpenReSendNotification,
+  closeModalReSendNotification,
+  isReSendNotificationData,
 }) => {
   const [screenLoading, setScreenLoading] = useState(false);
 
@@ -18,18 +17,20 @@ const SendNotifications = ({
       event.preventDefault();
       event.stopPropagation();
     }
-    closeModalSendNotification();
+    closeModalReSendNotification();
   };
 
-  const handleSendNotifi = async () => {
+  // console.log(isReSendNotificationData);
+
+  const handleReSendNotifi = async () => {
     handleCloseModal();
     // console.log(isSendNotificationData.to);
     try {
       setScreenLoading(true);
       const formData = {
-        to: isSendNotificationData.to,
-        title: isSendNotificationData.title,
-        message: isSendNotificationData.message,
+        to: isReSendNotificationData.sentTo,
+        title: isReSendNotificationData.title,
+        message: isReSendNotificationData.body,
       };
 
       const response = await axios.post(
@@ -62,7 +63,7 @@ const SendNotifications = ({
         <Loading loading background="#49504c85" loaderColor="#ffffff40" />
       )}
 
-      {isOpenSendNotification && (
+      {isOpenReSendNotification && (
         <div className="fixed inset-0 flex items-center justify-center z-50 w-full">
           <div
             className="absolute inset-0 bg-black opacity-50"
@@ -76,7 +77,7 @@ const SendNotifications = ({
                 className="w-[40px] h-[40px]"
               />
               <h3 className="text-[#FFFFFF] text-[32px] font-semibold my-4">
-                Send Notification
+                Resend Notification
               </h3>
               <p className="text-center text-[#FFFFFF] text-[16px] font-normal mt-2 mb-16">
                 Are you sure you want to Resend this notification. This action
@@ -93,7 +94,7 @@ const SendNotifications = ({
               </button>
               <button
                 className="border-2 border-[#FFCF40] bg-[#FFFFFF33] text-[#FFFFFF] rounded-full text-[16px] font-medium w-1/2 p-1"
-                onClick={handleSendNotifi}
+                onClick={handleReSendNotifi}
               >
                 Yes
               </button>
@@ -105,11 +106,11 @@ const SendNotifications = ({
   );
 };
 
-SendNotifications.propTypes = {
-  isOpenSendNotification: PropTypes.bool.isRequired,
-  closeModalSendNotification: PropTypes.func.isRequired,
-  isSendNotificationData: PropTypes.object.isRequired,
+ResendNotificationModel.propTypes = {
+  isOpenReSendNotification: PropTypes.bool.isRequired,
+  closeModalReSendNotification: PropTypes.func.isRequired,
+  isReSendNotificationData: PropTypes.object,
   // resetForm: PropTypes.func.isRequired,
 };
 
-export default SendNotifications;
+export default ResendNotificationModel;

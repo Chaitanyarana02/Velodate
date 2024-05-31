@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import SendNotificationsModel from "../../models/SendNotificationsModel";
 
 const NewNotifications = () => {
@@ -6,13 +9,18 @@ const NewNotifications = () => {
 
   const [sendNotiData, setSendNotiData] = useState({
     to: "",
-    title: "New Function",
-    message:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint quae, cum et placeat asperiores vero consequuntur debitis nobis assumenda praesentium!",
+    title: "",
+    message: "",
   });
 
   const openModal = () => {
-    setIsModalOpen(true);
+    if (!sendNotiData.to || !sendNotiData.title || !sendNotiData.message) {
+      toast.warning("All fields are required to send a notification.", {
+        autoClose: 3000,
+      });
+    } else {
+      setIsModalOpen(true);
+    }
   };
 
   const closeModal = () => {
@@ -25,6 +33,14 @@ const NewNotifications = () => {
     setSendNotiData({
       ...sendNotiData,
       [name]: value,
+    });
+  };
+
+  const resetForm = () => {
+    setSendNotiData({
+      to: "",
+      title: "",
+      message: "",
     });
   };
 
@@ -49,10 +65,13 @@ const NewNotifications = () => {
             </div>
           </div>
 
+          <ToastContainer />
+
           <SendNotificationsModel
             isOpenSendNotification={isModalOpen}
             closeModalSendNotification={closeModal}
             isSendNotificationData={sendNotiData}
+            resetForm={resetForm}
           />
 
           {/* add notifications */}
@@ -95,6 +114,7 @@ const NewNotifications = () => {
                     type="text"
                     id="userName"
                     className="border border-[#C5C5C5] outline-none rounded-md bg-black p-[12px] h-[40px] w-full md:w-2/5 lg:w-[25%]"
+                    placeholder="give the title"
                     value={sendNotiData.title}
                     onChange={handleInputChange}
                   />
@@ -112,6 +132,7 @@ const NewNotifications = () => {
                     cols="30"
                     rows="5"
                     className="border border-[#C5C5C5] outline-none rounded-md bg-black p-[12px] w-full md:w-2/5 lg:w-[25%]"
+                    placeholder="give the message"
                     value={sendNotiData.message}
                     onChange={handleInputChange}
                   ></textarea>

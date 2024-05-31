@@ -5,11 +5,10 @@ import Loading from "react-fullscreen-loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SendNotifications = ({
-  isOpenSendNotification,
-  closeModalSendNotification,
-  isSendNotificationData,
-  // resetForm,
+const ResendMailNotificationModel = ({
+  isOpenReSendMailNotification,
+  closeModalReSendMailNotification,
+  isReSendMailNotificationData,
 }) => {
   const [screenLoading, setScreenLoading] = useState(false);
 
@@ -18,22 +17,25 @@ const SendNotifications = ({
       event.preventDefault();
       event.stopPropagation();
     }
-    closeModalSendNotification();
+    closeModalReSendMailNotification();
   };
 
-  const handleSendNotifi = async () => {
+  //   console.log(isReSendMailNotificationData);
+
+  const handleReSendNotifi = async () => {
     handleCloseModal();
     // console.log(isSendNotificationData.to);
     try {
       setScreenLoading(true);
       const formData = {
-        to: isSendNotificationData.to,
-        title: isSendNotificationData.title,
-        message: isSendNotificationData.message,
+        to: isReSendMailNotificationData.sentTo,
+        title: isReSendMailNotificationData.title,
+        message: isReSendMailNotificationData.body,
+        file: isReSendMailNotificationData.attachment || "",
       };
 
       const response = await axios.post(
-        "admin/users/send-push-notification",
+        "admin/users/send-email-notification",
         formData
       );
 
@@ -62,7 +64,7 @@ const SendNotifications = ({
         <Loading loading background="#49504c85" loaderColor="#ffffff40" />
       )}
 
-      {isOpenSendNotification && (
+      {isOpenReSendMailNotification && (
         <div className="fixed inset-0 flex items-center justify-center z-50 w-full">
           <div
             className="absolute inset-0 bg-black opacity-50"
@@ -75,12 +77,12 @@ const SendNotifications = ({
                 alt="sidNavLogOut"
                 className="w-[40px] h-[40px]"
               />
-              <h3 className="text-[#FFFFFF] text-[32px] font-semibold my-4">
-                Send Notification
+              <h3 className="text-[#FFFFFF] text-[32px] text-center font-semibold my-4">
+                Resend Mail Notification
               </h3>
               <p className="text-center text-[#FFFFFF] text-[16px] font-normal mt-2 mb-16">
-                Are you sure you want to Resend this notification. This action
-                is non-revisable.
+                Are you sure you want to Resend this mail notification. This
+                action is non-revisable.
               </p>
             </div>
 
@@ -93,7 +95,7 @@ const SendNotifications = ({
               </button>
               <button
                 className="border-2 border-[#FFCF40] bg-[#FFFFFF33] text-[#FFFFFF] rounded-full text-[16px] font-medium w-1/2 p-1"
-                onClick={handleSendNotifi}
+                onClick={handleReSendNotifi}
               >
                 Yes
               </button>
@@ -105,11 +107,11 @@ const SendNotifications = ({
   );
 };
 
-SendNotifications.propTypes = {
-  isOpenSendNotification: PropTypes.bool.isRequired,
-  closeModalSendNotification: PropTypes.func.isRequired,
-  isSendNotificationData: PropTypes.object.isRequired,
+ResendMailNotificationModel.propTypes = {
+  isOpenReSendMailNotification: PropTypes.bool.isRequired,
+  closeModalReSendMailNotification: PropTypes.func.isRequired,
+  isReSendMailNotificationData: PropTypes.object,
   // resetForm: PropTypes.func.isRequired,
 };
 
-export default SendNotifications;
+export default ResendMailNotificationModel;

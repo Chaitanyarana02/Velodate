@@ -5,7 +5,7 @@ import Loading from "react-fullscreen-loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SendNotifications = ({
+const SendMailNotificationModel = ({
   isOpenSendNotification,
   closeModalSendNotification,
   isSendNotificationData,
@@ -26,15 +26,25 @@ const SendNotifications = ({
     // console.log(isSendNotificationData.to);
     try {
       setScreenLoading(true);
-      const formData = {
-        to: isSendNotificationData.to,
-        title: isSendNotificationData.title,
-        message: isSendNotificationData.message,
-      };
+
+      const formData = new FormData();
+      formData.append("to", isSendNotificationData.to);
+      formData.append("title", isSendNotificationData.title);
+      formData.append("message", isSendNotificationData.message);
+      if (isSendNotificationData.image) {
+        formData.append("file", isSendNotificationData.image);
+      }
+
+      //   console.log(formData);
 
       const response = await axios.post(
-        "admin/users/send-push-notification",
-        formData
+        "admin/users/send-email-notification",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
       setScreenLoading(false);
@@ -45,7 +55,7 @@ const SendNotifications = ({
         // resetForm();
       }
 
-      // console.log(response);
+      // console.log(response.data.status);
     } catch (error) {
       // console.error("Error while sending notification:", error);
       toast.error(error.message);
@@ -75,12 +85,12 @@ const SendNotifications = ({
                 alt="sidNavLogOut"
                 className="w-[40px] h-[40px]"
               />
-              <h3 className="text-[#FFFFFF] text-[32px] font-semibold my-4">
-                Send Notification
+              <h3 className="text-[#FFFFFF] text-[32px] font-semibold my-4 text-center">
+                Send Mail Notification
               </h3>
               <p className="text-center text-[#FFFFFF] text-[16px] font-normal mt-2 mb-16">
-                Are you sure you want to Resend this notification. This action
-                is non-revisable.
+                Are you sure you want to Send this notification. This action is
+                non-revisable.
               </p>
             </div>
 
@@ -105,11 +115,11 @@ const SendNotifications = ({
   );
 };
 
-SendNotifications.propTypes = {
+SendMailNotificationModel.propTypes = {
   isOpenSendNotification: PropTypes.bool.isRequired,
   closeModalSendNotification: PropTypes.func.isRequired,
   isSendNotificationData: PropTypes.object.isRequired,
   // resetForm: PropTypes.func.isRequired,
 };
 
-export default SendNotifications;
+export default SendMailNotificationModel;

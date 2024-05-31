@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import SendNotificationsModel from "../../models/SendNotificationsModel";
+import ResendNotificationModel from "../../models/ResendNotificationModel";
 import DeleteNotificationModel from "../../models/DeleteNotificationModel";
 
 const NotificationPush = () => {
@@ -24,6 +24,13 @@ const NotificationPush = () => {
 
   const closeModalDelete = () => {
     setIsModalOpenDelete(false);
+  };
+
+  const formatDate = (date) => {
+    const parsedDate = new Date(date);
+    return parsedDate instanceof Date && !isNaN(parsedDate)
+      ? parsedDate.toISOString().split("T")[0]
+      : "Invalid Date";
   };
 
   return (
@@ -52,14 +59,16 @@ const NotificationPush = () => {
               </button>
             </div>
 
-            <SendNotificationsModel
-              isOpenSendNotification={isModalOpenResend}
-              closeModalSendNotification={closeModalResend}
+            <ResendNotificationModel
+              isOpenReSendNotification={isModalOpenResend}
+              closeModalReSendNotification={closeModalResend}
+              isReSendNotificationData={notifyData}
             />
 
             <DeleteNotificationModel
               isOpenDeleteNotification={isModalOpenDelete}
               closeModalDeleteNotification={closeModalDelete}
+              isDeleteNotification={notifyData}
             />
           </div>
 
@@ -74,7 +83,7 @@ const NotificationPush = () => {
                     Date
                   </label>
                   <p className="font-normal text-[16px] w-1/2">
-                    {notifyData.date}
+                    {formatDate(notifyData.createdAt)}
                   </p>
                 </div>
 
@@ -84,7 +93,7 @@ const NotificationPush = () => {
                     To
                   </label>
                   <p className="font-normal text-[16px] w-1/2">
-                    {notifyData.name}
+                    {notifyData.sentTo}
                   </p>
                 </div>
 
@@ -94,7 +103,7 @@ const NotificationPush = () => {
                     Title
                   </label>
                   <p className="font-normal text-[16px] w-1/2">
-                    {notifyData.subject}
+                    {notifyData.title}
                   </p>
                 </div>
 
@@ -103,8 +112,8 @@ const NotificationPush = () => {
                   <label htmlFor="name" className="w-32 text-[14px]">
                     Message
                   </label>
-                  <p className="font-normal text-[16px] w-full md:w-1/3 lg:w-2/5">
-                    {notifyData.message}
+                  <p className="font-normal text-[16px] w-1/2">
+                    {notifyData.body}
                   </p>
                 </div>
               </div>

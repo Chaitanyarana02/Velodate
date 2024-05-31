@@ -1,16 +1,60 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import SendMailNotificationModel from "../../models/SendMailNotificationModel";
 
 const NewMail = () => {
   const fileInputRef = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sendNotiData, setSendNotiData] = useState({
+    to: "",
+    title: "",
+    message: "",
+    image: null,
+  });
+
+  const openModal = () => {
+    if (!sendNotiData.to || !sendNotiData.title || !sendNotiData.message) {
+      toast.warning("All fields are required to send a notification.", {
+        autoClose: 3000,
+      });
+    } else {
+      setIsModalOpen(true);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
-    // Do something with the selected file
-    console.log("Selected file:", file);
+    setSendNotiData((prevData) => ({
+      ...prevData,
+      image: file,
+    }));
+    // console.log("Selected file:", file);
   };
 
   const openFilePicker = () => {
     fileInputRef.current.click();
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setSendNotiData({
+      ...sendNotiData,
+      [name]: value,
+    });
+  };
+
+  const resetForm = () => {
+    setSendNotiData({
+      to: "",
+      title: "",
+      message: "",
+      image: null,
+    });
   };
 
   return (
@@ -25,11 +69,23 @@ const NewMail = () => {
 
             {/* Delete and resend button */}
             <div className="flex justify-end gap-8 w-full">
-              <button className="text-[#D8A409] hover:border hover:border-[#D19D00] text-[14px] p-2 rounded-full w-full md:w-[22%]">
+              <button
+                className="text-[#D8A409] hover:border hover:border-[#D19D00] text-[14px] p-2 rounded-full w-full md:w-[22%]"
+                onClick={openModal}
+              >
                 Send Notification
               </button>
             </div>
           </div>
+
+          <ToastContainer />
+
+          <SendMailNotificationModel
+            isOpenSendNotification={isModalOpen}
+            closeModalSendNotification={closeModal}
+            isSendNotificationData={sendNotiData}
+            resetForm={resetForm}
+          />
 
           {/* add notifications */}
           <div className="w-full flex flex-col gap-8 mt-4">
@@ -42,18 +98,19 @@ const NewMail = () => {
                     To
                   </label>
                   <select
-                    name="gender"
-                    id="nameGender"
-                    className="border border-[#C5C5C5] outline-none rounded-md bg-black p-[12px] h-[40px] w-full md:w-2/5 lg:w-[25%]"
+                    name="to"
+                    className="border border-[#C5C5C5] outline-none rounded-md bg-black p-[12px] w-full md:w-2/5 lg:w-[25%]"
+                    value={sendNotiData.to}
+                    onChange={handleInputChange}
                   >
-                    <option value="gender" className="text-[16px]">
+                    <option value="userType" className="text-[16px]">
                       Select the users
                     </option>
-                    <option value="gender" className="text-[16px]">
-                      Gaurav
+                    <option value="NEW USERS" className="text-[16px]">
+                      NEW USERS
                     </option>
-                    <option value="gender" className="text-[16px]">
-                      Milan
+                    <option value="ALL USERS" className="text-[16px]">
+                      ALL USERS
                     </option>
                   </select>
                 </div>
@@ -64,11 +121,13 @@ const NewMail = () => {
                     Email title
                   </label>
                   <input
+                    name="title"
                     type="text"
-                    name="name"
                     id="userName"
-                    className="border border-[#C5C5C5] outline-none rounded-md bg-black p-[12px] h-[40px] w-full md:w-2/5 lg:w-[25%]"
-                    defaultValue={"New Function"}
+                    className="border border-[#C5C5C5] outline-none rounded-md bg-black p-[12px] w-full md:w-2/5 lg:w-[25%]"
+                    placeholder={"give your title"}
+                    value={sendNotiData.title}
+                    onChange={handleInputChange}
                   />
                 </div>
 
@@ -83,9 +142,9 @@ const NewMail = () => {
                     cols="30"
                     rows="5"
                     className="border border-[#C5C5C5] outline-none rounded-md bg-black p-[12px] w-full md:w-2/5 lg:w-[25%]"
-                    defaultValue={
-                      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint quae, cum et placeat asperiores vero consequuntur debitis nobis assumenda praesentium!"
-                    }
+                    placeholder={"give you message"}
+                    value={sendNotiData.message}
+                    onChange={handleInputChange}
                   ></textarea>
                 </div>
 
@@ -108,6 +167,12 @@ const NewMail = () => {
                   >
                     Choose file
                   </button>
+
+                  {sendNotiData.image && (
+                    <span className="text-[#F6F6F6]">
+                      Selected file: {sendNotiData.image.name}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
