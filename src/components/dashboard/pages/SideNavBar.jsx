@@ -11,6 +11,7 @@ const SideNavBar = ({ isOpen, setIsOpen }) => {
   const [colorChnageContact, setColorChnageContact] = useState(false);
   const [colorChnageNotification, setColorChnageNotification] = useState(false);
   const [colorChnageMail, setColorChnageMail] = useState(false);
+  const [colorChnageFeedBack, setColorChnageFeedBack] = useState(false);
   const [colorChnageLogout, setColorChnageLogout] = useState(false);
 
   const [focusedItem, setFocusedItem] = useState(null);
@@ -41,6 +42,8 @@ const SideNavBar = ({ isOpen, setIsOpen }) => {
       setFocusedItem("notification");
     } else if (pathname === "/mail") {
       setFocusedItem("mail");
+    } else if (pathname === "/feedback") {
+      setFocusedItem("feedback");
     }
   };
 
@@ -324,6 +327,45 @@ const SideNavBar = ({ isOpen, setIsOpen }) => {
                     onMouseLeave={() => setColorChnageMail(false)}
                   >
                     Mail
+                  </span>
+                )}
+              </Link>
+            </li>
+
+            {/* feedback */}
+            <li className={`${(isHovered || isOpen) && "w-full"}`}>
+            <Link
+                to="/feedback"
+                className={`rounded-md ${
+                  focusedItem == "feedback" && "bg-[#292824]"
+                } ${
+                  isHovered || isOpen
+                    ? "w-full flex items-center gap-2 justify-start px-4 py-2"
+                    : "block p-2"
+                }`}
+                onClick={(e) => handleFocus("mail", e)}
+              >
+                <img
+                  src={
+                    colorChnageFeedBack || focusedItem == "feedback"
+                      ? "/sidTopNavAssets/feedbackHover.png" 
+                      :  "/sidTopNavAssets/feedback.png"
+                      
+                  }
+                  alt="home_icon"
+                  className="w-[24px] h-[24px] object-cover"
+                  onMouseEnter={() => setColorChnageFeedBack(true)}
+                  onMouseLeave={() => setColorChnageFeedBack(false)}
+                />
+                {(isHovered || isOpen) && (
+                  <span
+                    className={
+                      colorChnageFeedBack ? "text-[#D8A409]" : "text-[#F6F6F6]"
+                    }
+                    onMouseEnter={() => setColorChnageFeedBack(true)}
+                    onMouseLeave={() => setColorChnageFeedBack(false)}
+                  >
+                    FeedBack
                   </span>
                 )}
               </Link>

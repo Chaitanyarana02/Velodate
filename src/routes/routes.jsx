@@ -21,7 +21,9 @@ import {
   SelfProfile,
   UserProfile,
   Users,
+  FeedBack
 } from "../components/dashboard/pages";
+
 
 const routes = () => {
   return (
@@ -33,6 +35,8 @@ const routes = () => {
       <Route path="/sign-up" element={<AuthLayout />}>
         <Route index element={<Sign_Up />} />
       </Route>
+
+    
 
       {/* private routes */}
       <Route path="/" element={<DashboardLayout />}>
@@ -53,6 +57,8 @@ const routes = () => {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/new-notifications" element={<NewNotifications />} />
         <Route path="/new-mail" element={<NewMail />} />
+        <Route path="/feedback" element={<FeedBack />} />
+       
       </Route>
     </Routes>
   );

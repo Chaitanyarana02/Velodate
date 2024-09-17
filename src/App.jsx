@@ -11,7 +11,7 @@ const TitleUpdater = () => {
       path === "/"
         ? "Home"
         : path.slice(1).charAt(0).toUpperCase() + path.slice(2);
-    document.title = `Velodate - ${title}`;
+    document.title = `Intrsting - ${title}`;
   }, [location]);
 
   return null;

@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://apis-dev.velodate.com/api/",
-  // baseURL: "https://dev.velodate.com/api/",
+  // baseURL: "https://apis-dev.intrsting.com/api/",
+  // baseURL: "https://dev.intrsting.com/api/",
+  baseURL: "https://apis.intrsting.com/api/",
 });
 
 axiosInstance.interceptors.request.use(

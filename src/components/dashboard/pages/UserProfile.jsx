@@ -216,7 +216,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <h1 className="m-0 p-0 text-[12px]">What’s new on VeloDate</h1>
+          <h1 className="m-0 p-0 text-[12px]">What’s new on Intrsting</h1>
         </div>
       </div>
 
@@ -288,7 +288,7 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <h1 className="m-0 p-0 text-[12px]">What’s new on VeloDate</h1>
+          <h1 className="m-0 p-0 text-[12px]">What’s new on Intrsting</h1>
         </div>
       </div>
     </div>

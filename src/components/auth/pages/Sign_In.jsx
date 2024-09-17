@@ -117,8 +117,8 @@ const Sign_In = () => {
         <div className="w-full mb-8 md:text-start">
           <img
             src="/authAssets/velodate.svg"
-            alt="velodate"
-            className="h-[24px] w-[120.22px]"
+            alt="Intrsting"
+            className="h-[44px] w-[120.22px]"
           />
         </div>
 

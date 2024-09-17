@@ -12,3 +12,4 @@ export { default as SelfProfile } from "./SelfProfile";
 export { default as ResetPassword } from "./ResetPassword";
 export { default as NewNotifications } from "./NewNotifications";
 export { default as NewMail } from "./NewMail";
+export { default as FeedBack } from "./FeedBack";
